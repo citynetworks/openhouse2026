@@ -878,7 +878,7 @@ let state = {
   lightbox: null,
 };
 
-const SHEETS_URL = "https://script.google.com/macros/s/AKfycbwQqDikC-WTGttBZi0gvxGOo3XixAs9pT4L8N_Hr-4d3jZUfgS4uU4XEpeRs8BG3iRz/exec";
+const SHEETS_URL = "https://script.google.com/macros/s/AKfycbxJCond5JaI2gfmKiGBI2QRW-p6k874wPg8eOUIWI2V8XkipLDWs8L3TeyNfRHaT7uw/exec";
 
 function setState(patch) {
   Object.assign(state, patch);
@@ -1450,7 +1450,6 @@ function finishLesson() {
   const score = qs.results.filter(Boolean).length;
   const pct = Math.round((score / lesson.quiz.length) * 100);
 
-  // Push quiz results to Google Sheets
   if (state.rep) {
     const payload = {
       type: 'quiz_result',
