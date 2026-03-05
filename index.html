@@ -4,19 +4,252 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>chargeFUZE · Sales Champion Training 2026</title>
-  <meta name="description" content="1099 Sales Champion onboarding — 3 lessons, knowledge checks, field training." />
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050e1c; --bg2:#091626; --bg3:#0d1f35;
+  --navy:#0e2252; --blue:#1252cc; --blue2:#1a65e8;
+  --cyan:#00c2f0; --cyan2:#33d4ff;
+  --gold:#f0b429; --green:#27ae60; --red:#e74c3c; --purple:#8e44ad;
+  --white:#fff; --off:#e8f4fb; --muted:#5e82a0; --dim:rgba(255,255,255,0.55);
+  --rule:rgba(0,194,240,0.1); --rule2:rgba(255,255,255,0.06);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+
+.nav{position:sticky;top:0;z-index:200;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(5,14,28,0.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--rule);}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:.5px;cursor:pointer;user-select:none}
+.logo em{color:var(--cyan);font-style:normal}
+.logo span{color:var(--gold)}
+.nav-badge{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;padding:4px 12px;border:1px solid var(--rule);}
+.gbar{height:3px;background:var(--rule)}
+.gbar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--gold));transition:width .7s ease}
+
+.home{max-width:900px;margin:0 auto;padding:60px 28px 120px}
+.home-hero{margin-bottom:56px;position:relative}
+.hero-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:5px;color:var(--cyan);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:2px;background:var(--cyan)}
+.hero-h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(42px,12vw,96px);line-height:.92;letter-spacing:-2px;text-transform:uppercase;margin-bottom:16px;}
+.hero-h1 .c{color:var(--cyan)}
+.hero-h1 .g{color:var(--gold)}
+.hero-desc{font-size:16px;color:var(--dim);font-weight:300;max-width:500px;line-height:1.7;margin-bottom:28px}
+.hero-network{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rule);max-width:540px;margin-bottom:36px;}
+.hn-cell{background:var(--bg2);padding:16px 12px;text-align:center}
+.hn-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;color:var(--cyan);line-height:1}
+.hn-l{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;line-height:1.4}
+.overall-row{display:flex;align-items:center;gap:14px;max-width:440px}
+.otrack{flex:1;height:5px;background:var(--rule);overflow:hidden}
+.ofill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .6s}
+.olabel{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--cyan);letter-spacing:1px;white-space:nowrap}
+
+.cards{display:flex;flex-direction:column;gap:16px;margin-top:44px}
+.card{display:flex;align-items:stretch;background:var(--bg2);border:1px solid var(--rule2);overflow:hidden;cursor:pointer;transition:all .22s;position:relative;}
+.card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,194,240,0),rgba(0,194,240,0.03));opacity:0;transition:opacity .22s;pointer-events:none;}
+.card:hover:not(.locked)::after{opacity:1}
+.card:hover:not(.locked){border-color:rgba(0,194,240,.35);transform:translateY(-2px);box-shadow:0 20px 60px rgba(0,194,240,.06)}
+.locked{opacity:.32;cursor:not-allowed}
+.cdone{border-color:rgba(39,174,96,.25) !important}
+.cstripe{width:5px;flex-shrink:0;position:relative}
+.cstripe-glow{position:absolute;inset:0;filter:blur(8px);opacity:.4}
+.cbody{flex:1;padding:24px 22px}
+.ccode{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.ctitle{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;text-transform:uppercase;letter-spacing:.3px;margin-bottom:4px;line-height:1}
+.csub{font-size:13px;color:var(--muted);line-height:1.5}
+.cfoot{display:flex;align-items:center;gap:14px;margin-top:14px}
+.cdur{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.badge{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;border:1px solid}
+.bg{background:rgba(0,194,240,.08);color:var(--cyan);border-color:rgba(0,194,240,.2)}
+.bd{background:rgba(39,174,96,.08);color:var(--green);border-color:rgba(39,174,96,.2)}
+.bl{background:rgba(255,255,255,.03);color:var(--muted);border-color:rgba(255,255,255,.06)}
+.cicon{padding:24px 20px;display:flex;align-items:center;font-size:36px;opacity:.9}
+.cert{margin-top:40px;padding:28px 32px;display:flex;align-items:center;gap:24px;background:linear-gradient(135deg,rgba(18,82,204,.18),rgba(0,194,240,.05));border:1px solid rgba(0,194,240,.18);}
+.cert-em{font-size:44px}
+.cert-h{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;text-transform:uppercase;margin-bottom:4px}
+.cert-p{font-size:13px;color:var(--muted)}
+
+.lesson-wrap{max-width:820px;margin:0 auto;padding:0 28px 120px}
+.lhdr{padding:40px 0 30px;border-bottom:1px solid var(--rule);margin-bottom:40px}
+.back{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;cursor:pointer;border:none;background:none;padding:0;margin-bottom:20px;display:inline-flex;align-items:center;gap:8px;}
+.back:hover{opacity:.6}
+.lnum{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:5px;color:var(--cyan);text-transform:uppercase;margin-bottom:8px}
+.ltitle{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(30px,5vw,50px);text-transform:uppercase;line-height:1;letter-spacing:-.5px;margin-bottom:6px}
+.lsub{font-size:14px;color:var(--muted);margin-bottom:22px}
+.slide-bar{display:flex;align-items:center;gap:12px}
+.strack{flex:1;height:4px;background:var(--rule);overflow:hidden}
+.sfill{height:100%;transition:width .35s ease}
+.slabel{font-family:'Barlow Condensed',sans-serif;font-size:10px;color:var(--muted);letter-spacing:2px;white-space:nowrap}
+
+.slide{animation:sUp .3s ease both}
+@keyframes sUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.sh{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(24px,4vw,36px);text-transform:uppercase;letter-spacing:-.3px;margin-bottom:10px;line-height:1.05}
+.sb{font-size:15px;color:var(--dim);line-height:1.8;font-weight:300;margin-bottom:22px;max-width:680px}
+.callout{border-left:3px solid var(--cyan);padding:16px 22px;background:rgba(0,194,240,.05);font-size:14px;font-style:italic;color:rgba(255,255,255,.75);line-height:1.75;margin-top:4px}
+.bstat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--rule);margin-top:4px}
+.bstat{background:var(--bg2);padding:28px 14px;text-align:center}
+.bstat-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;color:var(--cyan);line-height:1;display:block}
+.bstat-l{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px;line-height:1.4}
+.vmap{display:flex;flex-direction:column;gap:2px;background:var(--rule);margin-top:4px}
+.vmap-row{background:var(--bg2);padding:15px 18px;display:grid;grid-template-columns:32px 160px 1fr;align-items:start;gap:14px;transition:background .18s}
+.vmap-row:hover{background:var(--bg3)}
+.vmap-icon{font-size:18px;padding-top:2px}
+.vmap-cat{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;color:var(--cyan);padding-top:2px}
+.vmap-detail{font-size:13px;color:var(--muted);line-height:1.55}
+.dma-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.dma{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--rule2);color:var(--muted)}
+.dma-hot{border-color:var(--cyan);color:var(--cyan);background:rgba(0,194,240,.06)}
+.dma-hot::before{content:'● ';font-size:8px}
+.roles{display:flex;gap:2px;background:var(--rule);margin-top:14px}
+.role{flex:1;background:var(--bg2);padding:20px 16px}
+.role-who{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px}
+.role-what{font-size:14px;color:var(--dim);line-height:1.55}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--rule);margin-top:4px}
+.pcard{background:var(--bg2);padding:22px;position:relative;overflow:hidden}
+.ptag{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;display:inline-block;padding:2px 9px;border:1px solid;margin-bottom:12px}
+.pname{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:44px;line-height:1;margin-bottom:2px}
+.pslots{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;opacity:.4;margin-bottom:10px}
+.pdesc{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:14px}
+.pspecs{list-style:none;margin-bottom:12px}
+.pspecs li{font-size:11px;color:rgba(255,255,255,.45);padding:4px 0 4px 14px;position:relative;border-bottom:1px solid rgba(255,255,255,.04)}
+.pspecs li span{position:absolute;left:0;font-size:10px}
+.pbest{font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.35;line-height:1.5}
+.bspecgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rule);margin-top:4px}
+.bscell{background:var(--bg2);padding:16px 14px}
+.bslabel{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
+.bsval{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;line-height:1.3}
+.vlist{display:flex;flex-direction:column;gap:2px;background:var(--rule);margin-top:4px}
+.vrow{background:var(--bg2);padding:14px 18px;display:grid;grid-template-columns:30px 110px 1fr 80px 36px;align-items:center;gap:12px;transition:background .18s}
+.vrow:hover{background:var(--bg3)}
+.vi{font-size:18px}
+.vn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase}
+.vsub{font-size:10px;opacity:.5;margin-top:1px}
+.vwhy{font-size:12px;color:var(--muted);line-height:1.5}
+.vunit{font-size:11px;color:var(--cyan);text-align:right;line-height:1.4}
+.vtier{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-align:right}
+.plist{display:flex;flex-direction:column;gap:2px;background:var(--rule);margin-top:4px}
+.prow{background:var(--bg2);padding:13px 18px;display:grid;grid-template-columns:155px 80px 1fr;align-items:start;gap:12px}
+.pspot{font-weight:600;font-size:13px;margin-bottom:5px}
+.pdots{display:flex;gap:3px}
+.pdot{width:7px;height:7px;border-radius:50%}
+.pverdict{font-size:12px;align-self:center}
+.ptip{font-size:12px;color:var(--muted);line-height:1.55}
+.ttable{width:100%;border-collapse:collapse;margin-top:4px}
+.ttable thead tr{background:var(--navy)}
+.ttable th{padding:11px 14px;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:left;border-bottom:1px solid var(--rule)}
+.ttable td{padding:14px;font-size:13px;color:var(--dim);border-bottom:1px solid var(--rule2);vertical-align:top}
+.ttable tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+.ttier{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30px !important;line-height:1}
+.tpay{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px !important;line-height:1}
+.pitchlist{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.pch{display:grid;grid-template-columns:94px 1fr;overflow:hidden;border:1px solid var(--rule2)}
+.pchlbl{background:var(--navy);padding:16px 10px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--cyan);letter-spacing:1px;text-align:center;line-height:1.4}
+.pchscript{background:var(--bg2);padding:16px 20px;font-size:13px;color:rgba(255,255,255,.62);font-style:italic;line-height:1.8}
+.objlist{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.ocard{background:var(--bg2);border:1px solid var(--rule2);overflow:hidden}
+.oq{padding:13px 18px;background:rgba(255,255,255,.03);font-size:14px;font-weight:600;border-bottom:1px solid var(--rule2)}
+.oa{padding:13px 18px;font-size:13px;color:rgba(255,255,255,.6);line-height:1.75;border-left:3px solid var(--cyan)}
+.steps{display:flex;flex-direction:column;gap:2px;background:var(--rule);margin-top:4px}
+.step{background:var(--bg2);padding:15px 18px;display:flex;align-items:flex-start;gap:16px;font-size:14px;color:var(--dim);line-height:1.55}
+.stepn{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;color:var(--cyan);min-width:28px;flex-shrink:0}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.bcard{background:var(--bg2);border:1px solid var(--rule2);padding:18px;position:relative;overflow:hidden}
+.bstripe{position:absolute;left:0;top:0;bottom:0;width:3px}
+.blabel{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.breward{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;line-height:1;margin-bottom:4px}
+.bnote{font-size:11px;color:var(--muted);line-height:1.4}
+
+.lnav{display:flex;justify-content:space-between;align-items:center;padding-top:32px;margin-top:40px;border-top:1px solid var(--rule)}
+.lindic{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--muted);letter-spacing:2px}
+.btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:12px 28px;border:none;cursor:pointer;transition:all .18s}
+.btn-c{background:var(--cyan);color:var(--bg)}
+.btn-c:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-g{background:transparent;color:var(--cyan);border:1px solid rgba(0,194,240,.25)}
+.btn-g:hover{border-color:var(--cyan)}
+.btn-gold{background:var(--gold);color:var(--bg)}
+.btn-gold:hover{filter:brightness(1.08);transform:translateY(-1px)}
+
+.qwrap{background:var(--bg2);border:1px solid var(--rule2);border-top:3px solid var(--cyan);padding:32px;margin-top:4px}
+.qey{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;color:var(--cyan);text-transform:uppercase;margin-bottom:20px}
+.qdots{display:flex;gap:6px;margin-bottom:18px}
+.qd{width:9px;height:9px;border-radius:50%;background:var(--rule);transition:background .3s}
+.qd-a{background:rgba(0,194,240,.45)}.qd-ok{background:var(--green)}.qd-no{background:var(--red)}
+.qq{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;line-height:1.3;margin-bottom:18px}
+.qnum{color:var(--cyan);margin-right:8px}
+.qopts{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.qo{padding:13px 18px;background:var(--bg);border:1px solid var(--rule2);cursor:pointer;font-size:14px;color:rgba(255,255,255,.62);transition:all .15s;text-align:left}
+.qo:hover:not(:disabled){border-color:var(--cyan);color:var(--white);background:rgba(0,194,240,.05)}
+.qo-ok{border-color:var(--green) !important;background:rgba(39,174,96,.1) !important;color:var(--green) !important}
+.qo-no{border-color:var(--red) !important;background:rgba(231,76,60,.1) !important;color:var(--red) !important}
+.qo:disabled{cursor:default}
+.qfb{font-size:14px;font-weight:600;margin-bottom:14px}
+.qscore-wrap{text-align:center;padding:20px 0}
+.qscore-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:72px;color:var(--cyan);line-height:1;display:block}
+.qscore-sub{color:var(--muted);font-size:14px;margin:8px 0 22px}
+.qscore-msg{font-size:14px;color:rgba(255,255,255,.4);margin-bottom:28px}
+
+.champ-list{display:flex;flex-direction:column;gap:2px;background:var(--rule);margin-top:4px}
+.champ-row{background:var(--bg2);padding:16px 18px;display:flex;align-items:flex-start;gap:16px;transition:background .18s}
+.champ-row:hover{background:var(--bg3)}
+.champ-icon{font-size:20px;flex-shrink:0;min-width:28px}
+.champ-text{font-size:14px;color:var(--dim);line-height:1.6;padding-top:2px}
+
+.photo-section{margin-top:28px}
+.photo-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.photo-label::before{content:'';display:block;width:20px;height:2px;background:var(--cyan)}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.photo-card{background:var(--bg2);border:1px solid var(--rule2);overflow:hidden;cursor:pointer;transition:border-color .2s}
+.photo-card:hover{border-color:rgba(0,194,240,.3)}
+.photo-img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.photo-fallback{width:100%;aspect-ratio:16/10;background:var(--navy);display:none;align-items:center;justify-content:center;font-size:11px;color:var(--muted);text-align:center;padding:8px}
+.photo-caption{padding:8px 10px;font-size:11px;color:var(--muted);letter-spacing:.5px;border-top:1px solid var(--rule2)}
+
+.ob-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(ellipse at 20% 50%, rgba(18,82,204,.18) 0%, transparent 60%),radial-gradient(ellipse at 80% 20%, rgba(0,194,240,.1) 0%, transparent 50%),var(--bg);}
+.ob-card{width:100%;max-width:460px;background:var(--bg2);border:1px solid var(--rule);padding:48px 44px;position:relative;overflow:hidden;}
+.ob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--gold));}
+.ob-logo{height:32px;display:block;margin-bottom:32px}
+.ob-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;color:var(--cyan);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.ob-eyebrow::before{content:'';display:block;width:20px;height:2px;background:var(--cyan)}
+.ob-h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(36px,6vw,52px);line-height:.92;letter-spacing:-1.5px;text-transform:uppercase;margin-bottom:14px;}
+.ob-sub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:32px;font-weight:300}
+.ob-form{display:flex;flex-direction:column;gap:16px}
+.ob-field{display:flex;flex-direction:column;gap:6px}
+.ob-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ob-input{background:var(--bg);border:1px solid var(--rule2);color:var(--white);padding:13px 16px;font-size:15px;font-family:'Barlow',sans-serif;outline:none;transition:border-color .18s;}
+.ob-input::placeholder{color:var(--muted)}
+.ob-input:focus{border-color:var(--cyan)}
+.ob-error{font-size:13px;color:#e74c3c;padding:8px 0}
+.ob-btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:16px;border:none;background:var(--cyan);color:var(--bg);cursor:pointer;transition:all .2s;margin-top:4px;}
+.ob-btn:hover:not(:disabled){filter:brightness(1.1);transform:translateY(-1px)}
+.ob-btn:disabled{opacity:.6;cursor:default;transform:none}
+.ob-btn-loading{background:var(--blue) !important}
+.ob-btn-success{background:var(--green) !important}
+.ob-footer{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:36px;padding-top:24px;border-top:1px solid var(--rule);}
+.ob-stat{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--white);text-align:center}
+.ob-stat span{display:block;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:400;margin-top:2px}
+.ob-divider{width:1px;height:28px;background:var(--rule)}
+.nav-rep{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;color:var(--cyan)}
+
+@media(max-width:480px){.ob-card{padding:36px 24px}}
+@media(max-width:600px){
+  .bstat-grid{grid-template-columns:1fr 1fr}
+  .pgrid{grid-template-columns:1fr}
+  .bspecgrid{grid-template-columns:1fr 1fr}
+  .vrow{grid-template-columns:30px 1fr}.vunit,.vtier{display:none}
+  .prow{grid-template-columns:130px 1fr}
+  .roles{flex-direction:column}
+  .bgrid{grid-template-columns:1fr}
+  .vmap-row{grid-template-columns:32px 1fr}
+  .pch{grid-template-columns:70px 1fr}
+  .photo-grid{grid-template-columns:1fr 1fr}
+  .hero-h1{font-size:clamp(36px,14vw,60px);line-height:.95;letter-spacing:-1px}
+  .home{padding:40px 20px 80px}
+}
+  </style>
 </head>
 <body>
   <div id="root"></div>
-  <script type="text/babel">
-const { useState } = React;
-
-
-
-// ─── DATA ─────────────────────────────────────────────────────────────────────
+<script>
 const LESSONS = [
   {
     id: 0,
@@ -632,829 +865,622 @@ const LESSONS = [
   },
 ];
 
-// ─── STYLES ───────────────────────────────────────────────────────────────────
-const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600&display=swap');
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#050e1c; --bg2:#091626; --bg3:#0d1f35;
-  --navy:#0e2252; --blue:#1252cc; --blue2:#1a65e8;
-  --cyan:#00c2f0; --cyan2:#33d4ff;
-  --gold:#f0b429; --green:#27ae60; --red:#e74c3c; --purple:#8e44ad;
-  --white:#fff; --off:#e8f4fb; --muted:#5e82a0; --dim:rgba(255,255,255,0.55);
-  --rule:rgba(0,194,240,0.1); --rule2:rgba(255,255,255,0.06);
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let state = {
+  rep: null,
+  view: 'onboarding', // onboarding | home | lesson
+  lid: 0,
+  si: 0,
+  quizOn: false,
+  done: {},
+  quizState: { qi: 0, sel: null, answered: false, results: [], finished: false },
+  lightbox: null,
+};
+
+const SHEETS_URL = "https://script.google.com/macros/s/AKfycbwQqDikC-WTGttBZi0gvxGOo3XixAs9pT4L8N_Hr-4d3jZUfgS4uU4XEpeRs8BG3iRz/exec";
+
+function setState(patch) {
+  Object.assign(state, patch);
+  render();
 }
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--white);font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
 
-.nav{position:sticky;top:0;z-index:200;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(5,14,28,0.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--rule);}
-.logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:.5px;cursor:pointer;user-select:none}
-.logo em{color:var(--cyan);font-style:normal}
-.logo span{color:var(--gold)}
-.nav-badge{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;padding:4px 12px;border:1px solid var(--rule);}
-.gbar{height:3px;background:var(--rule)}
-.gbar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--gold));transition:width .7s ease}
-
-.home{max-width:900px;margin:0 auto;padding:60px 28px 120px}
-.home-hero{margin-bottom:56px;position:relative}
-.hero-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:5px;color:var(--cyan);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
-.hero-eyebrow::before{content:'';display:block;width:28px;height:2px;background:var(--cyan)}
-.hero-h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(42px,12vw,96px);line-height:.92;letter-spacing:-2px;text-transform:uppercase;margin-bottom:16px;}
-.hero-h1 .c{color:var(--cyan)}
-.hero-h1 .g{color:var(--gold)}
-.hero-desc{font-size:16px;color:var(--dim);font-weight:300;max-width:500px;line-height:1.7;margin-bottom:28px}
-.hero-network{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rule);max-width:540px;margin-bottom:36px;}
-.hn-cell{background:var(--bg2);padding:16px 12px;text-align:center}
-.hn-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;color:var(--cyan);line-height:1}
-.hn-l{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;line-height:1.4}
-.overall-row{display:flex;align-items:center;gap:14px;max-width:440px}
-.otrack{flex:1;height:5px;background:var(--rule);overflow:hidden}
-.ofill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .6s}
-.olabel{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--cyan);letter-spacing:1px;white-space:nowrap}
-
-.cards{display:flex;flex-direction:column;gap:16px;margin-top:44px}
-.card{display:flex;align-items:stretch;background:var(--bg2);border:1px solid var(--rule2);overflow:hidden;cursor:pointer;transition:all .22s;position:relative;}
-.card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,194,240,0),rgba(0,194,240,0.03));opacity:0;transition:opacity .22s;pointer-events:none;}
-.card:hover:not(.locked)::after{opacity:1}
-.card:hover:not(.locked){border-color:rgba(0,194,240,.35);transform:translateY(-2px);box-shadow:0 20px 60px rgba(0,194,240,.06)}
-.locked{opacity:.32;cursor:not-allowed}
-.cdone{border-color:rgba(39,174,96,.25) !important}
-.cstripe{width:5px;flex-shrink:0;position:relative}
-.cstripe-glow{position:absolute;inset:0;filter:blur(8px);opacity:.4}
-.cbody{flex:1;padding:24px 22px}
-.ccode{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
-.ctitle{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;text-transform:uppercase;letter-spacing:.3px;margin-bottom:4px;line-height:1}
-.csub{font-size:13px;color:var(--muted);line-height:1.5}
-.cfoot{display:flex;align-items:center;gap:14px;margin-top:14px}
-.cdur{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
-.badge{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;border:1px solid}
-.bg{background:rgba(0,194,240,.08);color:var(--cyan);border-color:rgba(0,194,240,.2)}
-.bd{background:rgba(39,174,96,.08);color:var(--green);border-color:rgba(39,174,96,.2)}
-.bl{background:rgba(255,255,255,.03);color:var(--muted);border-color:rgba(255,255,255,.06)}
-.cicon{padding:24px 20px;display:flex;align-items:center;font-size:36px;opacity:.9}
-.cert{margin-top:40px;padding:28px 32px;display:flex;align-items:center;gap:24px;background:linear-gradient(135deg,rgba(18,82,204,.18),rgba(0,194,240,.05));border:1px solid rgba(0,194,240,.18);}
-.cert-em{font-size:44px}
-.cert-h{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;text-transform:uppercase;margin-bottom:4px}
-.cert-p{font-size:13px;color:var(--muted)}
-
-.lesson-wrap{max-width:820px;margin:0 auto;padding:0 28px 120px}
-.lhdr{padding:40px 0 30px;border-bottom:1px solid var(--rule);margin-bottom:40px}
-.back{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;cursor:pointer;border:none;background:none;padding:0;margin-bottom:20px;display:inline-flex;align-items:center;gap:8px;}
-.back:hover{opacity:.6}
-.lnum{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:5px;color:var(--cyan);text-transform:uppercase;margin-bottom:8px}
-.ltitle{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(30px,5vw,50px);text-transform:uppercase;line-height:1;letter-spacing:-.5px;margin-bottom:6px}
-.lsub{font-size:14px;color:var(--muted);margin-bottom:22px}
-.slide-bar{display:flex;align-items:center;gap:12px}
-.strack{flex:1;height:4px;background:var(--rule);overflow:hidden}
-.sfill{height:100%;transition:width .35s ease}
-.slabel{font-family:'Barlow Condensed',sans-serif;font-size:10px;color:var(--muted);letter-spacing:2px;white-space:nowrap}
-
-.slide{animation:sUp .3s ease both}
-@keyframes sUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.sh{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(24px,4vw,36px);text-transform:uppercase;letter-spacing:-.3px;margin-bottom:10px;line-height:1.05}
-.sb{font-size:15px;color:var(--dim);line-height:1.8;font-weight:300;margin-bottom:22px;max-width:680px}
-.callout{border-left:3px solid var(--cyan);padding:16px 22px;background:rgba(0,194,240,.05);font-size:14px;font-style:italic;color:rgba(255,255,255,.75);line-height:1.75;margin-top:4px}
-.bstat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--rule);margin-top:4px}
-.bstat{background:var(--bg2);padding:28px 14px;text-align:center}
-.bstat-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;color:var(--cyan);line-height:1;display:block}
-.bstat-l{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px;line-height:1.4}
-.vmap{display:flex;flex-direction:column;gap:2px;background:var(--rule);margin-top:4px}
-.vmap-row{background:var(--bg2);padding:15px 18px;display:grid;grid-template-columns:32px 160px 1fr;align-items:start;gap:14px;transition:background .18s}
-.vmap-row:hover{background:var(--bg3)}
-.vmap-icon{font-size:18px;padding-top:2px}
-.vmap-cat{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;color:var(--cyan);padding-top:2px}
-.vmap-detail{font-size:13px;color:var(--muted);line-height:1.55}
-.dma-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.dma{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--rule2);color:var(--muted)}
-.dma-hot{border-color:var(--cyan);color:var(--cyan);background:rgba(0,194,240,.06)}
-.dma-hot::before{content:'● ';font-size:8px}
-.roles{display:flex;gap:2px;background:var(--rule);margin-top:14px}
-.role{flex:1;background:var(--bg2);padding:20px 16px}
-.role-who{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px}
-.role-what{font-size:14px;color:var(--dim);line-height:1.55}
-.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--rule);margin-top:4px}
-.pcard{background:var(--bg2);padding:22px;position:relative;overflow:hidden}
-.ptag{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;display:inline-block;padding:2px 9px;border:1px solid;margin-bottom:12px}
-.pname{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:44px;line-height:1;margin-bottom:2px}
-.pslots{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;opacity:.4;margin-bottom:10px}
-.pdesc{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:14px}
-.pspecs{list-style:none;margin-bottom:12px}
-.pspecs li{font-size:11px;color:rgba(255,255,255,.45);padding:4px 0 4px 14px;position:relative;border-bottom:1px solid rgba(255,255,255,.04)}
-.pspecs li span{position:absolute;left:0;font-size:10px}
-.pbest{font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.35;line-height:1.5}
-.bspecgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rule);margin-top:4px}
-.bscell{background:var(--bg2);padding:16px 14px}
-.bslabel{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
-.bsval{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;line-height:1.3}
-.vlist{display:flex;flex-direction:column;gap:2px;background:var(--rule);margin-top:4px}
-.vrow{background:var(--bg2);padding:14px 18px;display:grid;grid-template-columns:30px 110px 1fr 80px 36px;align-items:center;gap:12px;transition:background .18s}
-.vrow:hover{background:var(--bg3)}
-.vi{font-size:18px}
-.vn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase}
-.vsub{font-size:10px;opacity:.5;margin-top:1px}
-.vwhy{font-size:12px;color:var(--muted);line-height:1.5}
-.vunit{font-size:11px;color:var(--cyan);text-align:right;line-height:1.4}
-.vtier{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-align:right}
-.plist{display:flex;flex-direction:column;gap:2px;background:var(--rule);margin-top:4px}
-.prow{background:var(--bg2);padding:13px 18px;display:grid;grid-template-columns:155px 80px 1fr;align-items:start;gap:12px}
-.pspot{font-weight:600;font-size:13px;margin-bottom:5px}
-.pdots{display:flex;gap:3px}
-.pdot{width:7px;height:7px;border-radius:50%}
-.pverdict{font-size:12px;align-self:center}
-.ptip{font-size:12px;color:var(--muted);line-height:1.55}
-.ttable{width:100%;border-collapse:collapse;margin-top:4px}
-.ttable thead tr{background:var(--navy)}
-.ttable th{padding:11px 14px;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:left;border-bottom:1px solid var(--rule)}
-.ttable td{padding:14px;font-size:13px;color:var(--dim);border-bottom:1px solid var(--rule2);vertical-align:top}
-.ttable tr:nth-child(even) td{background:rgba(255,255,255,.015)}
-.ttier{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30px !important;line-height:1}
-.tpay{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px !important;line-height:1}
-.pitchlist{display:flex;flex-direction:column;gap:10px;margin-top:4px}
-.pch{display:grid;grid-template-columns:94px 1fr;overflow:hidden;border:1px solid var(--rule2)}
-.pchlbl{background:var(--navy);padding:16px 10px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--cyan);letter-spacing:1px;text-align:center;line-height:1.4}
-.pchscript{background:var(--bg2);padding:16px 20px;font-size:13px;color:rgba(255,255,255,.62);font-style:italic;line-height:1.8}
-.objlist{display:flex;flex-direction:column;gap:10px;margin-top:4px}
-.ocard{background:var(--bg2);border:1px solid var(--rule2);overflow:hidden}
-.oq{padding:13px 18px;background:rgba(255,255,255,.03);font-size:14px;font-weight:600;border-bottom:1px solid var(--rule2)}
-.oa{padding:13px 18px;font-size:13px;color:rgba(255,255,255,.6);line-height:1.75;border-left:3px solid var(--cyan)}
-.steps{display:flex;flex-direction:column;gap:2px;background:var(--rule);margin-top:4px}
-.step{background:var(--bg2);padding:15px 18px;display:flex;align-items:flex-start;gap:16px;font-size:14px;color:var(--dim);line-height:1.55}
-.stepn{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;color:var(--cyan);min-width:28px;flex-shrink:0}
-.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
-.bcard{background:var(--bg2);border:1px solid var(--rule2);padding:18px;position:relative;overflow:hidden}
-.bstripe{position:absolute;left:0;top:0;bottom:0;width:3px}
-.blabel{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
-.breward{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;line-height:1;margin-bottom:4px}
-.bnote{font-size:11px;color:var(--muted);line-height:1.4}
-
-.lnav{display:flex;justify-content:space-between;align-items:center;padding-top:32px;margin-top:40px;border-top:1px solid var(--rule)}
-.lindic{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--muted);letter-spacing:2px}
-.btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:12px 28px;border:none;cursor:pointer;transition:all .18s}
-.btn-c{background:var(--cyan);color:var(--bg)}
-.btn-c:hover{filter:brightness(1.1);transform:translateY(-1px)}
-.btn-g{background:transparent;color:var(--cyan);border:1px solid rgba(0,194,240,.25)}
-.btn-g:hover{border-color:var(--cyan)}
-.btn-gold{background:var(--gold);color:var(--bg)}
-.btn-gold:hover{filter:brightness(1.08);transform:translateY(-1px)}
-
-.qwrap{background:var(--bg2);border:1px solid var(--rule2);border-top:3px solid var(--cyan);padding:32px;margin-top:4px}
-.qey{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;color:var(--cyan);text-transform:uppercase;margin-bottom:20px}
-.qdots{display:flex;gap:6px;margin-bottom:18px}
-.qd{width:9px;height:9px;border-radius:50%;background:var(--rule);transition:background .3s}
-.qd-a{background:rgba(0,194,240,.45)}.qd-ok{background:var(--green)}.qd-no{background:var(--red)}
-.qq{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;line-height:1.3;margin-bottom:18px}
-.qnum{color:var(--cyan);margin-right:8px}
-.qopts{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.qo{padding:13px 18px;background:var(--bg);border:1px solid var(--rule2);cursor:pointer;font-size:14px;color:rgba(255,255,255,.62);transition:all .15s;text-align:left}
-.qo:hover:not(:disabled){border-color:var(--cyan);color:var(--white);background:rgba(0,194,240,.05)}
-.qo-ok{border-color:var(--green) !important;background:rgba(39,174,96,.1) !important;color:var(--green) !important}
-.qo-no{border-color:var(--red) !important;background:rgba(231,76,60,.1) !important;color:var(--red) !important}
-.qo:disabled{cursor:default}
-.qfb{font-size:14px;font-weight:600;margin-bottom:14px}
-.qscore-wrap{text-align:center;padding:20px 0}
-.qscore-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:72px;color:var(--cyan);line-height:1;display:block}
-.qscore-sub{color:var(--muted);font-size:14px;margin:8px 0 22px}
-.qscore-msg{font-size:14px;color:rgba(255,255,255,.4);margin-bottom:28px}
-
-.champ-list{display:flex;flex-direction:column;gap:2px;background:var(--rule);margin-top:4px}
-.champ-row{background:var(--bg2);padding:16px 18px;display:flex;align-items:flex-start;gap:16px;transition:background .18s}
-.champ-row:hover{background:var(--bg3)}
-.champ-icon{font-size:20px;flex-shrink:0;min-width:28px}
-.champ-text{font-size:14px;color:var(--dim);line-height:1.6;padding-top:2px}
-
-.photo-section{margin-top:28px}
-.photo-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;display:flex;align-items:center;gap:10px}
-.photo-label::before{content:'';display:block;width:20px;height:2px;background:var(--cyan)}
-.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.photo-card{background:var(--bg2);border:1px solid var(--rule2);overflow:hidden;cursor:pointer;transition:border-color .2s}
-.photo-card:hover{border-color:rgba(0,194,240,.3)}
-.photo-img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
-.photo-fallback{width:100%;aspect-ratio:16/10;background:var(--navy);display:none;align-items:center;justify-content:center;font-size:11px;color:var(--muted);text-align:center;padding:8px}
-.photo-caption{padding:8px 10px;font-size:11px;color:var(--muted);letter-spacing:.5px;border-top:1px solid var(--rule2)}
-
-.ob-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(ellipse at 20% 50%, rgba(18,82,204,.18) 0%, transparent 60%),radial-gradient(ellipse at 80% 20%, rgba(0,194,240,.1) 0%, transparent 50%),var(--bg);}
-.ob-card{width:100%;max-width:460px;background:var(--bg2);border:1px solid var(--rule);padding:48px 44px;position:relative;overflow:hidden;}
-.ob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--gold));}
-.ob-logo{height:32px;display:block;margin-bottom:32px}
-.ob-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;color:var(--cyan);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
-.ob-eyebrow::before{content:'';display:block;width:20px;height:2px;background:var(--cyan)}
-.ob-h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(36px,6vw,52px);line-height:.92;letter-spacing:-1.5px;text-transform:uppercase;margin-bottom:14px;}
-.ob-sub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:32px;font-weight:300}
-.ob-form{display:flex;flex-direction:column;gap:16px}
-.ob-field{display:flex;flex-direction:column;gap:6px}
-.ob-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-.ob-input{background:var(--bg);border:1px solid var(--rule2);color:var(--white);padding:13px 16px;font-size:15px;font-family:'Barlow',sans-serif;outline:none;transition:border-color .18s;}
-.ob-input::placeholder{color:var(--muted)}
-.ob-input:focus{border-color:var(--cyan)}
-.ob-error{font-size:13px;color:#e74c3c;padding:8px 0}
-.ob-btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:16px;border:none;background:var(--cyan);color:var(--bg);cursor:pointer;transition:all .2s;margin-top:4px;}
-.ob-btn:hover:not(:disabled){filter:brightness(1.1);transform:translateY(-1px)}
-.ob-btn:disabled{opacity:.6;cursor:default;transform:none}
-.ob-btn-loading{background:var(--blue) !important}
-.ob-btn-success{background:var(--green) !important}
-.ob-footer{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:36px;padding-top:24px;border-top:1px solid var(--rule);}
-.ob-stat{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--white);text-align:center}
-.ob-stat span{display:block;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:400;margin-top:2px}
-.ob-divider{width:1px;height:28px;background:var(--rule)}
-.nav-rep{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;color:var(--cyan)}
-
-@media(max-width:480px){.ob-card{padding:36px 24px}}
-@media(max-width:600px){
-  .bstat-grid{grid-template-columns:1fr 1fr}
-  .pgrid{grid-template-columns:1fr}
-  .bspecgrid{grid-template-columns:1fr 1fr}
-  .vrow{grid-template-columns:30px 1fr}.vunit,.vtier{display:none}
-  .prow{grid-template-columns:130px 1fr}
-  .roles{flex-direction:column}
-  .bgrid{grid-template-columns:1fr}
-  .vmap-row{grid-template-columns:32px 1fr}
-  .pch{grid-template-columns:70px 1fr}
-  .photo-grid{grid-template-columns:1fr 1fr}
-  .hero-h1{font-size:clamp(36px,14vw,60px);line-height:.95;letter-spacing:-1px}
-  .home{padding:40px 20px 80px}
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function h(tag, attrs, ...children) {
+  const el = document.createElement(tag);
+  if (attrs) {
+    for (const [k, v] of Object.entries(attrs)) {
+      if (k === 'className') el.className = v;
+      else if (k === 'style' && typeof v === 'object') Object.assign(el.style, v);
+      else if (k.startsWith('on') && typeof v === 'function') el.addEventListener(k.slice(2).toLowerCase(), v);
+      else if (k === 'disabled') { if (v) el.disabled = true; }
+      else if (k === 'src') el.src = v;
+      else if (k === 'alt') el.alt = v;
+      else if (k === 'type') el.type = v;
+      else if (k === 'placeholder') el.placeholder = v;
+      else if (k === 'value') el.value = v;
+      else el.setAttribute(k, v);
+    }
+  }
+  for (const child of children.flat()) {
+    if (child == null || child === false) continue;
+    if (typeof child === 'string' || typeof child === 'number') el.appendChild(document.createTextNode(child));
+    else if (child instanceof Node) el.appendChild(child);
+  }
+  return el;
 }
-`;
 
-// ─── LIGHTBOX ────────────────────────────────────────────────────────────────
-function Lightbox({ photo, onClose }) {
-  if (!photo) return null;
-  return (
-    <div
-      onClick={onClose}
-      style={{
-        position: "fixed", inset: 0, zIndex: 1000,
-        background: "rgba(0,0,0,0.92)",
-        display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "center",
-        padding: "24px", cursor: "zoom-out",
-        backdropFilter: "blur(8px)",
-      }}
-    >
-      <img
-        src={photo.src}
-        alt={photo.caption}
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          maxWidth: "100%", maxHeight: "82vh",
-          objectFit: "contain", display: "block",
-          border: "1px solid rgba(0,194,240,0.2)",
-          cursor: "default",
-        }}
-      />
-      <div style={{
-        marginTop: 14, fontFamily: "'Barlow Condensed', sans-serif",
-        fontSize: 13, letterSpacing: "2px", textTransform: "uppercase",
-        color: "rgba(255,255,255,0.5)",
-      }}>
-        {photo.caption}
-      </div>
-      <button
-        onClick={onClose}
-        style={{
-          position: "fixed", top: 20, right: 24,
-          background: "none", border: "1px solid rgba(255,255,255,0.15)",
-          color: "rgba(255,255,255,0.6)", fontFamily: "'Barlow Condensed', sans-serif",
-          fontSize: 11, letterSpacing: "2px", textTransform: "uppercase",
-          padding: "8px 16px", cursor: "pointer",
-        }}
-      >
-        ✕ Close
-      </button>
-    </div>
-  );
-}
+function setHTML(el, html) { el.innerHTML = html; return el; }
+function div(cls, ...children) { return h('div', { className: cls }, ...children); }
+function span(cls, text) { return h('span', { className: cls }, text); }
 
 // ─── SLIDE RENDERER ───────────────────────────────────────────────────────────
-function Slide({ data, accent }) {
-  const [lightbox, setLightbox] = useState(null);
-  return (
-    <div className="slide" key={data.headline}>
-      <h3 className="sh">{data.headline}</h3>
-      <p className="sb">{data.sub}</p>
+function renderSlide(data, accent) {
+  const wrap = div('slide');
 
-      {data.callout && <div className="callout">{data.callout}</div>}
+  const title = h('h3', { className: 'sh' }, data.headline);
+  const sub = h('p', { className: 'sb' }, data.sub);
+  wrap.appendChild(title);
+  wrap.appendChild(sub);
 
-      {data.stats && (
-        <div className="bstat-grid">
-          {data.stats.map((s, i) => (
-            <div className="bstat" key={i}>
-              <span className="bstat-n">{s.n}</span>
-              <div className="bstat-l">{s.l}</div>
-            </div>
-          ))}
-        </div>
-      )}
+  if (data.callout) {
+    wrap.appendChild(div('callout', data.callout));
+  }
 
-      {data.cats && (
-        <div className="vmap">
-          {data.cats.map((c, i) => (
-            <div className="vmap-row" key={i}>
-              <div className="vmap-icon">{c.icon}</div>
-              <div className="vmap-cat">{c.name}</div>
-              <div className="vmap-detail">{c.detail}</div>
-            </div>
-          ))}
-        </div>
-      )}
+  if (data.stats) {
+    const grid = div('bstat-grid');
+    data.stats.forEach(s => {
+      const cell = div('bstat');
+      cell.appendChild(h('span', { className: 'bstat-n' }, s.n));
+      cell.appendChild(div('bstat-l', s.l));
+      grid.appendChild(cell);
+    });
+    wrap.appendChild(grid);
+  }
 
-      {data.dmas && (
-        <div className="dma-grid">
-          {data.dmas.map((d, i) => (
-            <div key={i} className={`dma${d.hot ? " dma-hot" : ""}`}>
-              {d.city}{" "}
-              {d.hot ? "" : <span style={{ opacity: 0.5, fontSize: 10 }}>· {d.status}</span>}
-              {d.hot && <span style={{ fontSize: 10, opacity: 0.7 }}> · {d.status}</span>}
-            </div>
-          ))}
-        </div>
-      )}
+  if (data.cats) {
+    const vmap = div('vmap');
+    data.cats.forEach(c => {
+      const row = div('vmap-row');
+      row.appendChild(div('vmap-icon', c.icon));
+      row.appendChild(div('vmap-cat', c.name));
+      row.appendChild(div('vmap-detail', c.detail));
+      vmap.appendChild(row);
+    });
+    wrap.appendChild(vmap);
+  }
 
-      {data.roles && (
-        <div className="roles">
-          {data.roles.map((r, i) => (
-            <div className="role" key={i}>
-              <div className="role-who" style={{ color: r.color }}>{r.who}</div>
-              <div className="role-what">{r.what}</div>
-            </div>
-          ))}
-        </div>
-      )}
+  if (data.dmas) {
+    const grid = div('dma-grid');
+    data.dmas.forEach(d => {
+      const el = div(d.hot ? 'dma dma-hot' : 'dma');
+      el.textContent = d.city + (d.hot ? ' · ' + d.status : ' · ' + d.status);
+      grid.appendChild(el);
+    });
+    wrap.appendChild(grid);
+  }
 
-      {data.bullets && (
-        <div className="champ-list">
-          {data.bullets.map((b, i) => (
-            <div className="champ-row" key={i}>
-              <div className="champ-icon">{b.icon}</div>
-              <div className="champ-text">{b.text}</div>
-            </div>
-          ))}
-        </div>
-      )}
+  if (data.bullets) {
+    const list = div('champ-list');
+    data.bullets.forEach(b => {
+      const row = div('champ-row');
+      row.appendChild(div('champ-icon', b.icon));
+      row.appendChild(div('champ-text', b.text));
+      list.appendChild(row);
+    });
+    wrap.appendChild(list);
+  }
 
-      {data.photos && (
-        <>
-          <Lightbox photo={lightbox} onClose={() => setLightbox(null)} />
-          <div className="photo-section">
-            <div className="photo-label">In the Field — Real Installs · Click to Expand</div>
-            <div className="photo-grid">
-              {data.photos.map((p, i) => (
-                <div className="photo-card" key={i} onClick={() => setLightbox(p)} style={{ cursor: "zoom-in" }}>
-                  <img
-                    src={p.src}
-                    alt={p.caption}
-                    className="photo-img"
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                      e.target.nextSibling.style.display = "flex";
-                    }}
-                  />
-                  <div className="photo-fallback"><span>{p.caption}</span></div>
-                  <div className="photo-caption">{p.caption}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </>
-      )}
+  if (data.photos) {
+    // Lightbox
+    const lightboxOverlay = h('div', {
+      style: {
+        display: state.lightbox ? 'flex' : 'none',
+        position: 'fixed', inset: '0', zIndex: '1000',
+        background: 'rgba(0,0,0,0.92)', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        padding: '24px', cursor: 'zoom-out', backdropFilter: 'blur(8px)',
+      },
+      onClick: () => setState({ lightbox: null }),
+    });
+    if (state.lightbox) {
+      const lbImg = h('img', {
+        src: state.lightbox.src, alt: state.lightbox.caption,
+        style: { maxWidth: '100%', maxHeight: '82vh', objectFit: 'contain', border: '1px solid rgba(0,194,240,0.2)', cursor: 'default' },
+        onClick: (e) => e.stopPropagation(),
+      });
+      const lbCap = h('div', { style: { marginTop: '14px', fontFamily: "'Barlow Condensed',sans-serif", fontSize: '13px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' } }, state.lightbox.caption);
+      const closeBtn = h('button', {
+        style: { position: 'fixed', top: '20px', right: '24px', background: 'none', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.6)', fontFamily: "'Barlow Condensed',sans-serif", fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', padding: '8px 16px', cursor: 'pointer' },
+        onClick: (e) => { e.stopPropagation(); setState({ lightbox: null }); },
+      }, '✕ Close');
+      lightboxOverlay.appendChild(lbImg);
+      lightboxOverlay.appendChild(lbCap);
+      lightboxOverlay.appendChild(closeBtn);
+    }
+    wrap.appendChild(lightboxOverlay);
 
-      {data.products && (
-        <div className="pgrid">
-          {data.products.map((p, i) => (
-            <div className="pcard" key={i}>
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: p.color }} />
-              <div className="ptag" style={{ color: p.color, borderColor: p.color + "44" }}>{p.tag}</div>
-              <div className="pname" style={{ color: p.color }}>{p.name}</div>
-              <div className="pslots">{p.slots}{p.weight !== "—" ? ` · ${p.weight}` : ""}</div>
-              <div className="pdesc">{p.desc}</div>
-              <ul className="pspecs">
-                {p.specs.map((s, j) => (
-                  <li key={j}><span style={{ color: p.color }}>→</span>{s}</li>
-                ))}
-              </ul>
-              <div className="pbest">{p.best}</div>
-            </div>
-          ))}
-        </div>
-      )}
+    const section = div('photo-section');
+    const label = div('photo-label', 'In the Field — Real Installs · Click to Expand');
+    const grid = div('photo-grid');
+    data.photos.forEach(p => {
+      const card = div('photo-card');
+      card.style.cursor = 'zoom-in';
+      card.addEventListener('click', () => setState({ lightbox: p }));
+      const img = h('img', { src: p.src, alt: p.caption, className: 'photo-img' });
+      img.addEventListener('error', () => { img.style.display = 'none'; fallback.style.display = 'flex'; });
+      const fallback = div('photo-fallback');
+      fallback.appendChild(h('span', null, p.caption));
+      const caption = div('photo-caption', p.caption);
+      card.appendChild(img);
+      card.appendChild(fallback);
+      card.appendChild(caption);
+      grid.appendChild(card);
+    });
+    section.appendChild(label);
+    section.appendChild(grid);
+    wrap.appendChild(section);
+  }
 
-      {data.specs && (
-        <div className="bspecgrid">
-          {data.specs.map((s, i) => (
-            <div className="bscell" key={i}
-              style={s.val === "FREE" ? { background: "rgba(39,174,96,0.08)", border: "1px solid rgba(39,174,96,0.2)" } : {}}>
-              <div className="bslabel">{s.label}</div>
-              <div className="bsval" style={s.val === "FREE" ? { color: "#27ae60" } : {}}>{s.val}</div>
-            </div>
-          ))}
-        </div>
-      )}
+  if (data.products) {
+    const pgrid = div('pgrid');
+    data.products.forEach(p => {
+      const card = div('pcard');
+      const bar = h('div', { style: { position: 'absolute', top: '0', left: '0', right: '0', height: '3px', background: p.color } });
+      const tag = div('ptag', p.tag);
+      tag.style.color = p.color; tag.style.borderColor = p.color + '44';
+      const name = div('pname', p.name);
+      name.style.color = p.color;
+      const slots = div('pslots', p.slots + (p.weight !== '—' ? ' · ' + p.weight : ''));
+      const desc = div('pdesc', p.desc);
+      const specs = h('ul', { className: 'pspecs' });
+      p.specs.forEach(s => {
+        const li = h('li', null);
+        li.innerHTML = '<span style="color:' + p.color + '">→</span>' + s;
+        specs.appendChild(li);
+      });
+      const best = div('pbest', p.best);
+      card.appendChild(bar); card.appendChild(tag); card.appendChild(name);
+      card.appendChild(slots); card.appendChild(desc); card.appendChild(specs); card.appendChild(best);
+      pgrid.appendChild(card);
+    });
+    wrap.appendChild(pgrid);
+  }
 
-      {data.verts && (
-        <div className="vlist">
-          {data.verts.map((v, i) => (
-            <div className="vrow" key={i}>
-              <div className="vi">{v.icon}</div>
-              <div>
-                <div className="vn" style={{ color: v.color }}>{v.name}</div>
-                <div className="vsub">{v.sub}</div>
-              </div>
-              <div className="vwhy">{v.why}</div>
-              <div className="vunit">{v.unit}</div>
-              <div className="vtier" style={{ color: v.color }}>{v.tier}</div>
-            </div>
-          ))}
-        </div>
-      )}
+  if (data.specs) {
+    const grid = div('bspecgrid');
+    data.specs.forEach(s => {
+      const cell = div('bscell');
+      if (s.val === 'FREE') { cell.style.background = 'rgba(39,174,96,0.08)'; cell.style.border = '1px solid rgba(39,174,96,0.2)'; }
+      const label = div('bslabel', s.label);
+      const val = div('bsval', s.val);
+      if (s.val === 'FREE') val.style.color = '#27ae60';
+      cell.appendChild(label); cell.appendChild(val);
+      grid.appendChild(cell);
+    });
+    wrap.appendChild(grid);
+  }
 
-      {data.spots && (
-        <div className="plist">
-          {data.spots.map((p, i) => (
-            <div className="prow" key={i}>
-              <div>
-                <div className="pspot">{p.name}</div>
-                <div className="pdots">
-                  {Array.from({ length: 5 }, (_, j) => (
-                    <div key={j} className="pdot" style={{ background: j < p.score ? accent : "rgba(255,255,255,0.08)" }} />
-                  ))}
-                </div>
-              </div>
-              <div className="pverdict">{p.verdict}</div>
-              <div className="ptip">{p.tip}</div>
-            </div>
-          ))}
-        </div>
-      )}
+  if (data.verts) {
+    const list = div('vlist');
+    data.verts.forEach(v => {
+      const row = div('vrow');
+      row.appendChild(div('vi', v.icon));
+      const nameWrap = h('div', null);
+      const vn = div('vn', v.name); vn.style.color = v.color;
+      nameWrap.appendChild(vn);
+      nameWrap.appendChild(div('vsub', v.sub));
+      row.appendChild(nameWrap);
+      row.appendChild(div('vwhy', v.why));
+      row.appendChild(div('vunit', v.unit));
+      const tier = div('vtier', v.tier); tier.style.color = v.color;
+      row.appendChild(tier);
+      list.appendChild(row);
+    });
+    wrap.appendChild(list);
+  }
 
-      {data.tiers && (
-        <table className="ttable">
-          <thead>
-            <tr>
-              <th>Tier</th><th>Payout</th><th>Target Venues</th><th>Bonuses</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.tiers.map((t, i) => (
-              <tr key={i}>
-                <td><div className="ttier" style={{ color: t.color }}>{t.t}</div></td>
-                <td><div className="tpay" style={{ color: t.color }}>{t.pay}</div></td>
-                <td>{t.venues}</td>
-                <td style={{ fontSize: 12 }}>
-                  <div>{t.sprint}</div>
-                  <div style={{ marginTop: 4, opacity: 0.6 }}>{t.mult}</div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+  if (data.spots) {
+    const list = div('plist');
+    data.spots.forEach(p => {
+      const row = div('prow');
+      const left = h('div', null);
+      left.appendChild(div('pspot', p.name));
+      const dots = div('pdots');
+      for (let j = 0; j < 5; j++) {
+        const dot = div('pdot');
+        dot.style.background = j < p.score ? accent : 'rgba(255,255,255,0.08)';
+        dots.appendChild(dot);
+      }
+      left.appendChild(dots);
+      row.appendChild(left);
+      row.appendChild(div('pverdict', p.verdict));
+      row.appendChild(div('ptip', p.tip));
+      list.appendChild(row);
+    });
+    wrap.appendChild(list);
+  }
 
-      {data.pitches && (
-        <div className="pitchlist">
-          {data.pitches.map((p, i) => (
-            <div className="pch" key={i}>
-              <div className="pchlbl">{p.v}</div>
-              <div className="pchscript">{p.s}</div>
-            </div>
-          ))}
-        </div>
-      )}
+  if (data.tiers) {
+    const table = h('table', { className: 'ttable' });
+    const thead = h('thead', null, h('tr', null,
+      h('th', null, 'Tier'), h('th', null, 'Payout'),
+      h('th', null, 'Target Venues'), h('th', null, 'Bonuses')
+    ));
+    const tbody = h('tbody', null);
+    data.tiers.forEach(t => {
+      const tr = h('tr', null);
+      const td1 = h('td', null); const ttier = div('ttier', t.t); ttier.style.color = t.color; td1.appendChild(ttier);
+      const td2 = h('td', null); const tpay = div('tpay', t.pay); tpay.style.color = t.color; td2.appendChild(tpay);
+      const td3 = h('td', null, t.venues);
+      const td4 = h('td', null);
+      td4.appendChild(h('div', null, t.sprint));
+      const mult = h('div', { style: { marginTop: '4px', opacity: '0.6', fontSize: '12px' } }, t.mult);
+      td4.appendChild(mult);
+      tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3); tr.appendChild(td4);
+      tbody.appendChild(tr);
+    });
+    table.appendChild(thead); table.appendChild(tbody);
+    wrap.appendChild(table);
+  }
 
-      {data.objs && (
-        <div className="objlist">
-          {data.objs.map((o, i) => (
-            <div className="ocard" key={i}>
-              <div className="oq">{o.o}</div>
-              <div className="oa">{o.r}</div>
-            </div>
-          ))}
-        </div>
-      )}
+  if (data.pitches) {
+    const list = div('pitchlist');
+    data.pitches.forEach(p => {
+      const row = div('pch');
+      row.appendChild(div('pchlbl', p.v));
+      row.appendChild(div('pchscript', p.s));
+      list.appendChild(row);
+    });
+    wrap.appendChild(list);
+  }
 
-      {data.steps && (
-        <div className="steps">
-          {data.steps.map((s, i) => (
-            <div className="step" key={i}>
-              <span className="stepn">{String(i + 1).padStart(2, "0")}</span>
-              <span>{s}</span>
-            </div>
-          ))}
-        </div>
-      )}
+  if (data.objs) {
+    const list = div('objlist');
+    data.objs.forEach(o => {
+      const card = div('ocard');
+      card.appendChild(div('oq', o.o));
+      card.appendChild(div('oa', o.r));
+      list.appendChild(card);
+    });
+    wrap.appendChild(list);
+  }
 
-      {data.bonuses && (
-        <div className="bgrid">
-          {data.bonuses.map((b, i) => (
-            <div className="bcard" key={i}>
-              <div className="bstripe" style={{ background: b.color }} />
-              <div className="blabel">{b.label}</div>
-              <div className="breward" style={{ color: b.color }}>{b.reward}</div>
-              <div className="bnote">{b.note}</div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+  if (data.steps) {
+    const steps = div('steps');
+    data.steps.forEach((s, i) => {
+      const step = div('step');
+      step.appendChild(span('stepn', String(i + 1).padStart(2, '0')));
+      step.appendChild(h('span', null, s));
+      steps.appendChild(step);
+    });
+    wrap.appendChild(steps);
+  }
+
+  if (data.bonuses) {
+    const grid = div('bgrid');
+    data.bonuses.forEach(b => {
+      const card = div('bcard');
+      const stripe = div('bstripe'); stripe.style.background = b.color;
+      card.appendChild(stripe);
+      card.appendChild(div('blabel', b.label));
+      const reward = div('breward', b.reward); reward.style.color = b.color;
+      card.appendChild(reward);
+      card.appendChild(div('bnote', b.note));
+      grid.appendChild(card);
+    });
+    wrap.appendChild(grid);
+  }
+
+  return wrap;
 }
 
 // ─── QUIZ ─────────────────────────────────────────────────────────────────────
-function Quiz({ qs, onDone }) {
-  const [qi, setQi] = useState(0);
-  const [sel, setSel] = useState(null);
-  const [answered, setAnswered] = useState(false);
-  const [results, setResults] = useState([]);
-  const [finished, setFinished] = useState(false);
+function renderQuiz(qs) {
+  const qs_state = state.quizState;
+  const wrap = div('qwrap');
+
+  if (qs_state.finished) {
+    const score = qs_state.results.filter(Boolean).length;
+    const pct = Math.round((score / qs.length) * 100);
+    const sw = div('qscore-wrap');
+    const n = h('span', { className: 'qscore-n' }, pct + '%');
+    sw.appendChild(n);
+    sw.appendChild(div('qscore-sub', score + ' of ' + qs.length + ' correct'));
+    const dots = div('qdots'); dots.style.justifyContent = 'center';
+    qs_state.results.forEach(r => { const d = div('qd ' + (r ? 'qd-ok' : 'qd-no')); dots.appendChild(d); });
+    sw.appendChild(dots);
+    sw.appendChild(div('qscore-msg', pct >= 75 ? "Solid. You\'re cleared to move on." : "Review the material and come back strong."));
+    const btn = h('button', { className: 'btn btn-gold', onClick: () => finishLesson() },
+      pct >= 75 ? 'Complete Lesson →' : 'Mark Done & Continue →');
+    sw.appendChild(btn);
+    wrap.appendChild(sw);
+    return wrap;
+  }
+
+  const qi = qs_state.qi;
   const q = qs[qi];
-  const score = results.filter(Boolean).length;
+  wrap.appendChild(div('qey', 'Knowledge Check · Question ' + (qi + 1) + ' of ' + qs.length));
+  const dots = div('qdots');
+  qs.forEach((_, i) => {
+    let cls = 'qd';
+    if (i < qi) cls += qs_state.results[i] ? ' qd-ok' : ' qd-no';
+    else if (i === qi && qs_state.answered) cls += qs_state.results[qi] ? ' qd-ok' : ' qd-no';
+    else if (i === qi) cls += ' qd-a';
+    dots.appendChild(div(cls));
+  });
+  wrap.appendChild(dots);
+  const qq = h('div', { className: 'qq' });
+  qq.appendChild(h('span', { className: 'qnum' }, 'Q' + (qi + 1) + '. '));
+  qq.appendChild(document.createTextNode(q.q));
+  wrap.appendChild(qq);
 
-  function pick(i) {
-    if (answered) return;
-    setSel(i);
-    setAnswered(true);
-    const ok = i === q.a;
-    const nr = [...results, ok];
-    setResults(nr);
-    if (qi + 1 >= qs.length) setTimeout(() => setFinished(true), 750);
+  const opts = div('qopts');
+  q.opts.forEach((o, i) => {
+    let cls = 'qo';
+    if (qs_state.answered && i === q.a) cls += ' qo-ok';
+    if (qs_state.answered && i === qs_state.sel && i !== q.a) cls += ' qo-no';
+    const btn = h('button', { className: cls, disabled: qs_state.answered,
+      onClick: () => {
+        if (qs_state.answered) return;
+        const ok = i === q.a;
+        const newResults = [...qs_state.results, ok];
+        const newState = { qi, sel: i, answered: true, results: newResults, finished: false };
+        if (qi + 1 >= qs.length) {
+          setTimeout(() => setState({ quizState: { ...newState, finished: true } }), 750);
+        }
+        setState({ quizState: newState });
+      }
+    }, o);
+    opts.appendChild(btn);
+  });
+  wrap.appendChild(opts);
+
+  if (qs_state.answered) {
+    const fb = h('div', { className: 'qfb', style: { color: qs_state.sel === q.a ? '#27ae60' : '#e74c3c' } },
+      qs_state.sel === q.a ? '✓ Correct' : '✗ Correct answer: ' + q.opts[q.a]);
+    wrap.appendChild(fb);
   }
-  function next() {
-    setQi(qi + 1);
-    setSel(null);
-    setAnswered(false);
+  if (qs_state.answered && qi + 1 < qs.length) {
+    const next = h('button', { className: 'btn btn-c', onClick: () => {
+      setState({ quizState: { qi: qi + 1, sel: null, answered: false, results: qs_state.results, finished: false } });
+    }}, 'Next →');
+    wrap.appendChild(next);
   }
-  const pct = finished ? Math.round((score / qs.length) * 100) : 0;
-
-  if (finished)
-    return (
-      <div className="qwrap">
-        <div className="qscore-wrap">
-          <span className="qscore-n">{pct}%</span>
-          <div className="qscore-sub">{score} of {qs.length} correct</div>
-          <div className="qdots" style={{ justifyContent: "center" }}>
-            {results.map((r, i) => <div key={i} className={`qd ${r ? "qd-ok" : "qd-no"}`} />)}
-          </div>
-          <div className="qscore-msg">{pct >= 75 ? "Solid. You're cleared to move on." : "Review the material and come back strong."}</div>
-          <button className="btn btn-gold" onClick={() => onDone(score, qs.length)}>
-            {pct >= 75 ? "Complete Lesson →" : "Mark Done & Continue →"}
-          </button>
-        </div>
-      </div>
-    );
-
-  return (
-    <div className="qwrap">
-      <div className="qey">Knowledge Check · Question {qi + 1} of {qs.length}</div>
-      <div className="qdots">
-        {qs.map((_, i) => {
-          let c = "qd";
-          if (i < qi) c += results[i] ? " qd-ok" : " qd-no";
-          else if (i === qi && answered) c += results[qi] ? " qd-ok" : " qd-no";
-          else if (i === qi) c += " qd-a";
-          return <div key={i} className={c} />;
-        })}
-      </div>
-      <div className="qq"><span className="qnum">Q{qi + 1}.</span>{q.q}</div>
-      <div className="qopts">
-        {q.opts.map((o, i) => (
-          <button key={i}
-            className={`qo${answered && i === q.a ? " qo-ok" : ""}${answered && i === sel && i !== q.a ? " qo-no" : ""}`}
-            onClick={() => pick(i)} disabled={answered}>{o}</button>
-        ))}
-      </div>
-      {answered && (
-        <div className="qfb" style={{ color: sel === q.a ? "#27ae60" : "#e74c3c" }}>
-          {sel === q.a ? "✓ Correct" : `✗ Correct answer: ${q.opts[q.a]}`}
-        </div>
-      )}
-      {answered && qi + 1 < qs.length && <button className="btn btn-c" onClick={next}>Next →</button>}
-    </div>
-  );
+  return wrap;
 }
 
-// ─── GOOGLE SHEETS WEBHOOK URL ───────────────────────────────────────────────
-const SHEETS_URL =
-  "https://script.google.com/macros/s/AKfycbwQqDikC-WTGttBZi0gvxGOo3XixAs9pT4L8N_Hr-4d3jZUfgS4uU4XEpeRs8BG3iRz/exec";
+// ─── ONBOARDING ───────────────────────────────────────────────────────────────
+function renderOnboarding() {
+  const wrap = div('ob-wrap');
+  const card = div('ob-card');
 
-// ─── ONBOARDING SCREEN ───────────────────────────────────────────────────────
-function Onboarding({ onComplete }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [status, setStatus] = useState("idle");
-  const [error, setError] = useState("");
+  const logo = h('img', { src: 'https://cdn.prod.website-files.com/65c2ccb5636828f10ee478a0/66fef35febc31e110d1e26b9_chargeFUZE_Primary-White.avif', alt: 'chargeFUZE', className: 'ob-logo' });
+  card.appendChild(logo);
+  card.appendChild(div('ob-eyebrow', 'City Networks · 2026'));
+  const h1 = h('h1', { className: 'ob-h1' });
+  h1.innerHTML = 'Welcome to<br>Sales Champion<br>Onboarding';
+  card.appendChild(h1);
+  card.appendChild(h('p', { className: 'ob-sub' }, 'Enter your info to get started. Takes 30 seconds — then you\'re in.'));
 
-  async function handleSubmit() {
-    if (!name.trim() || !email.trim() || !phone.trim()) { setError("All fields are required."); return; }
-    if (!/\S+@\S+\.\S+/.test(email)) { setError("Enter a valid email address."); return; }
-    setError("");
-    setStatus("loading");
-    const rep = { name: name.trim(), email: email.trim(), phone: phone.trim(), timestamp: new Date().toISOString() };
-    try { localStorage.setItem("cf_rep", JSON.stringify(rep)); } catch (e) {}
-    try {
-      await fetch(SHEETS_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(rep) });
-    } catch (e) {}
-    setStatus("success");
-    setTimeout(() => onComplete(rep), 1200);
-  }
+  const form = div('ob-form');
+  const nameInput = h('input', { className: 'ob-input', type: 'text', placeholder: 'First Last' });
+  const emailInput = h('input', { className: 'ob-input', type: 'email', placeholder: 'you@email.com' });
+  const phoneInput = h('input', { className: 'ob-input', type: 'tel', placeholder: '(555) 000-0000' });
+  const errorDiv = div('ob-error');
+  errorDiv.style.display = 'none';
 
-  return (
-    <div className="ob-wrap">
-      <div className="ob-card">
-        <img src="https://cdn.prod.website-files.com/65c2ccb5636828f10ee478a0/66fef35febc31e110d1e26b9_chargeFUZE_Primary-White.avif" alt="chargeFUZE" className="ob-logo" />
-        <div className="ob-eyebrow">City Networks · 2026</div>
-        <h1 className="ob-h1">Welcome to<br />Sales Champion<br />Onboarding</h1>
-        <p className="ob-sub">Enter your info to get started. Takes 30 seconds — then you're in.</p>
-        <div className="ob-form">
-          <div className="ob-field">
-            <label className="ob-label">Full Name</label>
-            <input className="ob-input" type="text" placeholder="First Last" value={name} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSubmit()} />
-          </div>
-          <div className="ob-field">
-            <label className="ob-label">Email Address</label>
-            <input className="ob-input" type="email" placeholder="you@email.com" value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSubmit()} />
-          </div>
-          <div className="ob-field">
-            <label className="ob-label">Phone Number</label>
-            <input className="ob-input" type="tel" placeholder="(555) 000-0000" value={phone} onChange={(e) => setPhone(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSubmit()} />
-          </div>
-          {error && <div className="ob-error">{error}</div>}
-          <button
-            className={`ob-btn${status === "loading" ? " ob-btn-loading" : ""}${status === "success" ? " ob-btn-success" : ""}`}
-            onClick={handleSubmit} disabled={status === "loading" || status === "success"}>
-            {status === "loading" ? "Saving..." : status === "success" ? "✓ Let's Go" : "Start Training →"}
-          </button>
-        </div>
-        <div className="ob-footer">
-          <div className="ob-stat">3,500+ <span>Locations</span></div>
-          <div className="ob-divider" />
-          <div className="ob-stat">300+ <span>Arenas</span></div>
-          <div className="ob-divider" />
-          <div className="ob-stat">1.5M+ <span>Users</span></div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── APP ─────────────────────────────────────────────────────────────────────
-export default function App() {
-  const getSavedRep = () => {
-    try { const r = localStorage.getItem("cf_rep"); return r ? JSON.parse(r) : null; } catch (e) { return null; }
+  const makeField = (label, input) => {
+    const f = div('ob-field');
+    f.appendChild(h('label', { className: 'ob-label' }, label));
+    f.appendChild(input);
+    return f;
   };
+  form.appendChild(makeField('Full Name', nameInput));
+  form.appendChild(makeField('Email Address', emailInput));
+  form.appendChild(makeField('Phone Number', phoneInput));
+  form.appendChild(errorDiv);
 
-  const [rep, setRep] = useState(getSavedRep);
-  const [view, setView] = useState("home");
-  const [lid, setLid] = useState(0);
-  const [si, setSi] = useState(0);
-  const [quizOn, setQuiz] = useState(false);
-  const [done, setDone] = useState({});
+  const submitBtn = h('button', { className: 'ob-btn', onClick: async () => {
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const phone = phoneInput.value.trim();
+    if (!name || !email || !phone) { errorDiv.textContent = 'All fields are required.'; errorDiv.style.display = 'block'; return; }
+    if (!/\S+@\S+\.\S+/.test(email)) { errorDiv.textContent = 'Enter a valid email address.'; errorDiv.style.display = 'block'; return; }
+    errorDiv.style.display = 'none';
+    submitBtn.textContent = 'Saving...'; submitBtn.disabled = true;
+    const rep = { name, email, phone, timestamp: new Date().toISOString() };
+    try { localStorage.setItem('cf_rep', JSON.stringify(rep)); } catch(e) {}
+    try { await fetch(SHEETS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(rep) }); } catch(e) {}
+    submitBtn.textContent = '✓ Let\'s Go';
+    setTimeout(() => setState({ rep, view: 'home' }), 1200);
+  }}, 'Start Training →');
+  form.appendChild(submitBtn);
+  card.appendChild(form);
 
-  const lesson = LESSONS[lid];
-  const total = lesson?.slides.length ?? 0;
-  const slidePct = quizOn ? 100 : (si / total) * 100;
-  const globalPct = (Object.keys(done).length / LESSONS.length) * 100;
-
-  function open(i) {
-    if (i > 0 && !done[i - 1]) return;
-    setLid(i); setSi(0); setQuiz(false); setView("lesson"); window.scrollTo(0, 0);
-  }
-  function goNext() {
-    if (si < total - 1) { setSi(si + 1); window.scrollTo(0, 0); }
-    else { setQuiz(true); window.scrollTo(0, 0); }
-  }
-  function goPrev() {
-    if (quizOn) { setQuiz(false); setSi(total - 1); }
-    else if (si > 0) setSi(si - 1);
-    window.scrollTo(0, 0);
-  }
-  function finish() {
-    setDone({ ...done, [lid]: true }); setView("home"); window.scrollTo(0, 0);
-  }
-
-  if (!rep)
-    return (
-      <>
-        <style>{CSS}</style>
-        <Onboarding onComplete={(r) => { setRep(r); setView("home"); }} />
-      </>
-    );
-
-  return (
-    <>
-      <style>{CSS}</style>
-      <div>
-        <nav className="nav">
-          <img src="https://cdn.prod.website-files.com/65c2ccb5636828f10ee478a0/66fef35febc31e110d1e26b9_chargeFUZE_Primary-White.avif"
-            alt="chargeFUZE" onClick={() => setView("home")}
-            style={{ height: "28px", cursor: "pointer", display: "block" }} />
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div className="nav-rep">👋 {rep.name.split(" ")[0]}</div>
-            <div className="nav-badge">1099 Sales Training</div>
-          </div>
-        </nav>
-        <div className="gbar"><div className="gbar-fill" style={{ width: `${globalPct}%` }} /></div>
-
-        {view === "home" && (
-          <div className="home">
-            <div className="home-hero">
-              <div className="hero-eyebrow">Field Rep Bootcamp · City Networks 2026</div>
-              <h1 className="hero-h1">Rep<br />Training<br /><span className="c">2026</span></h1>
-              <p className="hero-desc">3 lessons · ~32 min · Complete in order to unlock your market and start closing</p>
-              <div className="hero-network">
-                {[{ n: "3,500+", l: "Locations" }, { n: "300+", l: "Arenas" }, { n: "40+", l: "US States" }, { n: "1.5M+", l: "Users" }].map((s, i) => (
-                  <div className="hn-cell" key={i}><div className="hn-n">{s.n}</div><div className="hn-l">{s.l}</div></div>
-                ))}
-              </div>
-              {Object.keys(done).length > 0 && (
-                <div className="overall-row">
-                  <div className="otrack"><div className="ofill" style={{ width: `${globalPct}%` }} /></div>
-                  <div className="olabel">{Object.keys(done).length} / {LESSONS.length} DONE</div>
-                </div>
-              )}
-            </div>
-            <div className="cards">
-              {LESSONS.map((l, i) => {
-                const isDone = !!done[i];
-                const isLocked = i > 0 && !done[i - 1];
-                return (
-                  <div key={i} className={`card${isLocked ? " locked" : ""}${isDone ? " cdone" : ""}`} onClick={() => open(i)}>
-                    <div className="cstripe" style={{ background: isDone ? "#27ae60" : isLocked ? "rgba(255,255,255,.05)" : l.accent }}>
-                      <div className="cstripe-glow" style={{ background: isDone ? "#27ae60" : l.accent }} />
-                    </div>
-                    <div className="cbody">
-                      <div className="ccode">Lesson {l.code} of {LESSONS.length}</div>
-                      <div className="ctitle">{l.title}</div>
-                      <div className="csub">{l.subtitle}</div>
-                      <div className="cfoot">
-                        <span className="cdur">⏱ {l.dur}</span>
-                        {isDone ? <span className="badge bd">✓ Complete</span> : isLocked ? <span className="badge bl">🔒 Locked</span> : <span className="badge bg">Start →</span>}
-                      </div>
-                    </div>
-                    <div className="cicon">{l.icon}</div>
-                  </div>
-                );
-              })}
-            </div>
-            {Object.keys(done).length === LESSONS.length && (
-              <div className="cert">
-                <div className="cert-em">🏆</div>
-                <div>
-                  <div className="cert-h">Training Complete — Cleared for the Field</div>
-                  <p className="cert-p">All 3 lessons done. Grab your 2,500+ venue list and start building the network. Your commission stack is live from day one.</p>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {view === "lesson" && lesson && (
-          <div className="lesson-wrap">
-            <div className="lhdr">
-              <button className="back" onClick={() => setView("home")}>← All Lessons</button>
-              <div className="lnum">Lesson {lesson.code} of {LESSONS.length} · {lesson.dur}</div>
-              <h2 className="ltitle">{lesson.title}</h2>
-              <div className="lsub">{lesson.subtitle}</div>
-              <div className="slide-bar">
-                <div className="strack">
-                  <div className="sfill" style={{ width: `${slidePct}%`, background: `linear-gradient(90deg,var(--blue),${lesson.accent})` }} />
-                </div>
-                <div className="slabel">{quizOn ? "QUIZ" : `${si + 1} / ${total}`}</div>
-              </div>
-            </div>
-
-            {!quizOn && (
-              <>
-                <Slide data={lesson.slides[si]} accent={lesson.accent} />
-                <div className="lnav">
-                  <button className="btn btn-g" onClick={goPrev} style={{ visibility: si === 0 ? "hidden" : "visible" }}>← Back</button>
-                  <span className="lindic">{si + 1} / {total}</span>
-                  <button className="btn btn-c" onClick={goNext}>{si < total - 1 ? "Next →" : "Take Quiz →"}</button>
-                </div>
-              </>
-            )}
-
-            {quizOn && (
-              <>
-                <div style={{ marginBottom: 12 }}>
-                  <div className="hero-eyebrow" style={{ marginBottom: 8 }}>Knowledge Check</div>
-                  <p className="sb">Answer all questions to complete this lesson and unlock the next module.</p>
-                </div>
-                <Quiz qs={lesson.quiz} onDone={finish} />
-                <div style={{ marginTop: 16 }}>
-                  <button className="btn btn-g" onClick={goPrev}>← Review Slides</button>
-                </div>
-              </>
-            )}
-          </div>
-        )}
-      </div>
-    </>
-  );
+  const footer = div('ob-footer');
+  const makestat = (n, l) => { const s = div('ob-stat'); s.innerHTML = n + '<span>' + l + '</span>'; return s; };
+  footer.appendChild(makestat('3,500+', 'Locations'));
+  footer.appendChild(div('ob-divider'));
+  footer.appendChild(makestat('300+', 'Arenas'));
+  footer.appendChild(div('ob-divider'));
+  footer.appendChild(makestat('1.5M+', 'Users'));
+  card.appendChild(footer);
+  wrap.appendChild(card);
+  return wrap;
 }
 
+// ─── HOME ─────────────────────────────────────────────────────────────────────
+function renderHome() {
+  const wrap = div('home');
+  const hero = div('home-hero');
+  const eyebrow = div('hero-eyebrow', 'Field Rep Bootcamp · City Networks 2026');
+  const h1 = h('h1', { className: 'hero-h1' });
+  h1.innerHTML = 'Rep<br>Training<br><span class="c">2026</span>';
+  const desc = h('p', { className: 'hero-desc' }, '3 lessons · ~32 min · Complete in order to unlock your market and start closing');
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
-  </script>
+  const network = div('hero-network');
+  [['3,500+','Locations'],['300+','Arenas'],['40+','US States'],['1.5M+','Users']].forEach(([n,l]) => {
+    const cell = div('hn-cell');
+    cell.appendChild(div('hn-n', n));
+    cell.appendChild(div('hn-l', l));
+    network.appendChild(cell);
+  });
+
+  hero.appendChild(eyebrow); hero.appendChild(h1); hero.appendChild(desc); hero.appendChild(network);
+
+  const doneCount = Object.keys(state.done).length;
+  if (doneCount > 0) {
+    const row = div('overall-row');
+    const track = div('otrack'); const fill = div('ofill');
+    fill.style.width = (doneCount / LESSONS.length * 100) + '%';
+    track.appendChild(fill); row.appendChild(track);
+    row.appendChild(div('olabel', doneCount + ' / ' + LESSONS.length + ' DONE'));
+    hero.appendChild(row);
+  }
+  wrap.appendChild(hero);
+
+  const cards = div('cards');
+  LESSONS.forEach((l, i) => {
+    const isDone = !!state.done[i];
+    const isLocked = i > 0 && !state.done[i - 1];
+    const card = div('card' + (isLocked ? ' locked' : '') + (isDone ? ' cdone' : ''));
+    if (!isLocked) card.style.cursor = 'pointer';
+    card.addEventListener('click', () => { if (!isLocked) openLesson(i); });
+
+    const stripe = div('cstripe');
+    stripe.style.background = isDone ? '#27ae60' : isLocked ? 'rgba(255,255,255,.05)' : l.accent;
+    const glow = div('cstripe-glow'); glow.style.background = isDone ? '#27ae60' : l.accent;
+    stripe.appendChild(glow);
+
+    const body = div('cbody');
+    body.appendChild(div('ccode', 'Lesson ' + l.code + ' of ' + LESSONS.length));
+    body.appendChild(div('ctitle', l.title));
+    body.appendChild(div('csub', l.subtitle));
+    const foot = div('cfoot');
+    foot.appendChild(div('cdur', '⏱ ' + l.dur));
+    if (isDone) foot.appendChild(div('badge bd', '✓ Complete'));
+    else if (isLocked) foot.appendChild(div('badge bl', '🔒 Locked'));
+    else foot.appendChild(div('badge bg', 'Start →'));
+    body.appendChild(foot);
+
+    const icon = div('cicon', l.icon);
+    card.appendChild(stripe); card.appendChild(body); card.appendChild(icon);
+    cards.appendChild(card);
+  });
+  wrap.appendChild(cards);
+
+  if (doneCount === LESSONS.length) {
+    const cert = div('cert');
+    cert.appendChild(div('cert-em', '🏆'));
+    const certText = h('div', null);
+    certText.appendChild(div('cert-h', 'Training Complete — Cleared for the Field'));
+    certText.appendChild(h('p', { className: 'cert-p' }, 'All 3 lessons done. Grab your 2,500+ venue list and start building the network.'));
+    cert.appendChild(certText);
+    wrap.appendChild(cert);
+  }
+  return wrap;
+}
+
+// ─── LESSON ───────────────────────────────────────────────────────────────────
+function renderLesson() {
+  const lesson = LESSONS[state.lid];
+  const total = lesson.slides.length;
+  const slidePct = state.quizOn ? 100 : (state.si / total) * 100;
+  const wrap = div('lesson-wrap');
+
+  const hdr = div('lhdr');
+  const back = h('button', { className: 'back', onClick: () => setState({ view: 'home' }) }, '← All Lessons');
+  hdr.appendChild(back);
+  hdr.appendChild(div('lnum', 'Lesson ' + lesson.code + ' of ' + LESSONS.length + ' · ' + lesson.dur));
+  hdr.appendChild(h('h2', { className: 'ltitle' }, lesson.title));
+  hdr.appendChild(div('lsub', lesson.subtitle));
+
+  const slidebar = div('slide-bar');
+  const strack = div('strack'); const sfill = div('sfill');
+  sfill.style.width = slidePct + '%';
+  sfill.style.background = 'linear-gradient(90deg,var(--blue),' + lesson.accent + ')';
+  strack.appendChild(sfill); slidebar.appendChild(strack);
+  slidebar.appendChild(div('slabel', state.quizOn ? 'QUIZ' : (state.si + 1) + ' / ' + total));
+  hdr.appendChild(slidebar);
+  wrap.appendChild(hdr);
+
+  if (!state.quizOn) {
+    wrap.appendChild(renderSlide(lesson.slides[state.si], lesson.accent));
+    const nav = div('lnav');
+    const prevBtn = h('button', { className: 'btn btn-g', onClick: goPrev }, '← Back');
+    if (state.si === 0) prevBtn.style.visibility = 'hidden';
+    nav.appendChild(prevBtn);
+    nav.appendChild(div('lindic', (state.si + 1) + ' / ' + total));
+    nav.appendChild(h('button', { className: 'btn btn-c', onClick: goNext }, state.si < total - 1 ? 'Next →' : 'Take Quiz →'));
+    wrap.appendChild(nav);
+  } else {
+    const qhdr = h('div', { style: { marginBottom: '12px' } });
+    const ey = div('hero-eyebrow'); ey.style.marginBottom = '8px'; ey.textContent = 'Knowledge Check';
+    qhdr.appendChild(ey);
+    qhdr.appendChild(h('p', { className: 'sb' }, 'Answer all questions to complete this lesson and unlock the next module.'));
+    wrap.appendChild(qhdr);
+    wrap.appendChild(renderQuiz(lesson.quiz));
+    wrap.appendChild(h('div', { style: { marginTop: '16px' } },
+      h('button', { className: 'btn btn-g', onClick: goPrev }, '← Review Slides')
+    ));
+  }
+  return wrap;
+}
+
+// ─── ACTIONS ─────────────────────────────────────────────────────────────────
+function openLesson(i) {
+  setState({ lid: i, si: 0, quizOn: false, view: 'lesson', quizState: { qi: 0, sel: null, answered: false, results: [], finished: false } });
+  window.scrollTo(0, 0);
+}
+function goNext() {
+  const total = LESSONS[state.lid].slides.length;
+  if (state.si < total - 1) setState({ si: state.si + 1 });
+  else setState({ quizOn: true });
+  window.scrollTo(0, 0);
+}
+function goPrev() {
+  if (state.quizOn) { setState({ quizOn: false, si: LESSONS[state.lid].slides.length - 1 }); }
+  else if (state.si > 0) setState({ si: state.si - 1 });
+  window.scrollTo(0, 0);
+}
+function finishLesson() {
+  setState({ done: { ...state.done, [state.lid]: true }, view: 'home' });
+  window.scrollTo(0, 0);
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function render() {
+  const root = document.getElementById('root');
+  root.innerHTML = '';
+
+  // Nav
+  if (state.view !== 'onboarding') {
+    const nav = h('nav', { className: 'nav' });
+    const logo = h('img', { src: 'https://cdn.prod.website-files.com/65c2ccb5636828f10ee478a0/66fef35febc31e110d1e26b9_chargeFUZE_Primary-White.avif', alt: 'chargeFUZE', style: { height: '28px', cursor: 'pointer', display: 'block' }, onClick: () => setState({ view: 'home' }) });
+    const navRight = h('div', { style: { display: 'flex', alignItems: 'center', gap: '14px' } });
+    if (state.rep) navRight.appendChild(div('nav-rep', '👋 ' + state.rep.name.split(' ')[0]));
+    navRight.appendChild(div('nav-badge', '1099 Sales Training'));
+    nav.appendChild(logo); nav.appendChild(navRight);
+    root.appendChild(nav);
+
+    const gbar = div('gbar'); const gfill = div('gbar-fill');
+    gfill.style.width = (Object.keys(state.done).length / LESSONS.length * 100) + '%';
+    gbar.appendChild(gfill); root.appendChild(gbar);
+  }
+
+  if (state.view === 'onboarding') root.appendChild(renderOnboarding());
+  else if (state.view === 'home') root.appendChild(renderHome());
+  else if (state.view === 'lesson') root.appendChild(renderLesson());
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+try {
+  const saved = localStorage.getItem('cf_rep');
+  if (saved) { state.rep = JSON.parse(saved); state.view = 'home'; }
+} catch(e) {}
+
+render();
+</script>
 </body>
 </html>
