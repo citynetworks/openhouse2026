@@ -100,9 +100,8 @@ const LESSONS=[
  
 let rep={},completed=[],scores={},curLesson=0,curSlide=0,curQ=0,qCorrect=0,qAnswered=false,dashFilter='all',dashUnlocked=false;
 const DASH_PASSWORD='chargeFUZE2026';
-// ↓↓↓ PASTE YOUR SLACK WEBHOOK URL HERE ↓↓↓
-const SLACK_WEBHOOK='https://script.google.com/macros/library/d/1desnx5EcV8QV3NUgpHVKzTmlhREfYBj2Q9HmnEBTMCzR294yCBxjAz8o/3';
- // ↑↑↑ Get this from: Slack > Apps > Incoming Webhooks > #1099cntraining ↑↑↑
+// SLACK WEBHOOK — direct to Slack, uses sendBeacon to bypass CORS
+const SLACK_WEBHOOK='https://hooks.slack.com/services/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';
  
 function getDash(){try{return JSON.parse(localStorage.getItem('cfuze_d4')||'[]')}catch{return[]}}
 function saveDash(d){localStorage.setItem('cfuze_d4',JSON.stringify(d))}
@@ -110,9 +109,11 @@ function sendSlack(repData){
 if(!SLACK_WEBHOOK)return;
 const emoji=repData.pass?'✅':'❌';
 const payload={text:`${emoji} *New Training Submission*\n>*Name:* ${repData.name}\n>*Email:* ${repData.email}\n>*Phone:* ${repData.phone}\n>*DMA:* ${repData.dma}\n>*Score:* ${repData.score}%\n>*Status:* ${repData.pass?'PASSED':'FAILED'}\n>*Assigned Manager:* ${repData.manager}\n>*Completed:* ${new Date().toLocaleString()}`};
-fetch(SLACK_WEBHOOK,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
+navigator.sendBeacon(SLACK_WEBHOOK,new Blob([JSON.stringify(payload)],{type:'application/json'}));
 }
-const $=id=>document.getElementById(id),R=document.getElementById('root');function show(v){R.innerHTML='';window.scrollTo(0,0);renders[v]();} 
+const $=id=>document.getElementById(id),R=document.getElementById('root');
+function show(v){R.innerHTML='';window.scrollTo(0,0);renders[v]();}
+ 
 const renders={
 onboarding(){R.innerHTML=`<div class="nav"><div class="logo">charge<em>FUZE</em> <span>·</span></div><div class="nav-right"><div class="nav-badge">Sales Champion Training</div><button class="nav-link" onclick="tryDash()" style="opacity:.4;font-size:9px">Manager</button></div></div><div class="ob-wrap"><div class="ob-card"><div class="ob-eyebrow">City Networks · 2026</div><div class="ob-h1">Begin<br>Training</div><div class="ob-sub">Fill in your info to start Sales Champion certification. ~30 minutes total.</div><div class="ob-form"><div class="ob-field"><div class="ob-label">Full Name</div><input class="ob-input" id="f-name" placeholder="Your full name"></div><div class="ob-field"><div class="ob-label">Email</div><input class="ob-input" id="f-email" placeholder="your@email.com" type="email"></div><div class="ob-field"><div class="ob-label">Phone</div><input class="ob-input" id="f-phone" placeholder="(555) 000-0000" type="tel"></div><div class="ob-row"><div class="ob-field"><div class="ob-label">Assigned DMA</div><select class="ob-select" id="f-dma"><option value="">Select DMA</option>${DMAS.map(d=>`<option value="${d}">${d}</option>`).join('')}</select></div><div class="ob-field"><div class="ob-label">Start Date</div><input class="ob-input" id="f-date" type="date" value="${new Date().toISOString().split('T')[0]}"></div></div><div id="ob-err" class="ob-error"></div><button class="ob-btn" onclick="submitOB()">Begin Training →</button></div><div class="ob-footer"><div class="ob-stat">3,500+<span>Locations</span></div><div class="ob-divider"></div><div class="ob-stat">1.5M+<span>Users</span></div><div class="ob-divider"></div><div class="ob-stat">9<span>Markets</span></div></div></div></div>`;},
  
