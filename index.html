@@ -105,15 +105,15 @@ const DASH_PASSWORD='chargeFUZE2026';
 //        2) Paste the doPost function (provided separately)
 //        3) Deploy → New Deployment → Web App → Execute as Me → Anyone → Deploy
 //        4) Paste the URL below
-const SLACK_PROXY='https://script.google.com/macros/s/AKfycbx2wEhU1nHz1f6Fg2pP0YgksINKtZIRRsy7RA7kIAZYgf0oEpzo1P.../exec';
+const SLACK_PROXY='';
+
 function getDash(){try{return JSON.parse(localStorage.getItem('cfuze_d4')||'[]')}catch{return[]}}
 function saveDash(d){localStorage.setItem('cfuze_d4',JSON.stringify(d))}
 function sendSlack(repData){
 if(!SLACK_PROXY)return;
 const emoji=repData.pass?'✅':'❌';
 const msg=emoji+' *New Training Submission*\n>*Name:* '+repData.name+'\n>*Email:* '+repData.email+'\n>*Phone:* '+repData.phone+'\n>*DMA:* '+repData.dma+'\n>*Score:* '+repData.score+'%\n>*Status:* '+(repData.pass?'PASSED':'FAILED')+'\n>*Assigned Manager:* '+repData.manager+'\n>*Completed:* '+new Date().toLocaleString();
-const img=new Image();
-img.src=SLACK_PROXY+'?text='+encodeURIComponent(msg);
+var s=document.createElement('script');s.src=SLACK_PROXY+'?text='+encodeURIComponent(msg)+'&callback=_slackCb';document.body.appendChild(s);s.onload=function(){s.remove()};s.onerror=function(){s.remove()};
 }
 const $=id=>document.getElementById(id),R=document.getElementById('root');
 function show(v){R.innerHTML='';window.scrollTo(0,0);renders[v]();}
