@@ -100,16 +100,20 @@ const LESSONS=[
 
 let rep={},completed=[],scores={},curLesson=0,curSlide=0,curQ=0,qCorrect=0,qAnswered=false,dashFilter='all',dashUnlocked=false;
 const DASH_PASSWORD='chargeFUZE2026';
-// SLACK WEBHOOK — direct to Slack, uses sendBeacon to bypass CORS
-const SLACK_WEBHOOK='https://hooks.slack.com/services/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';
-
+// SLACK PROXY — replace this URL after deploying the Google Apps Script (see instructions below)
+// SETUP: 1) Go to script.google.com → New Project
+//        2) Paste the doPost function (provided separately)
+//        3) Deploy → New Deployment → Web App → Execute as Me → Anyone → Deploy
+//        4) Paste the URL below
+const SLACK_PROXY='https://script.google.com/macros/s/AKfycbx2wEhU1nHz1f6Fg2pP0YgksINKtZIRRsy7RA7kIAZYgf0oEpzo1P.../exec';
 function getDash(){try{return JSON.parse(localStorage.getItem('cfuze_d4')||'[]')}catch{return[]}}
 function saveDash(d){localStorage.setItem('cfuze_d4',JSON.stringify(d))}
 function sendSlack(repData){
-if(!SLACK_WEBHOOK)return;
+if(!SLACK_PROXY)return;
 const emoji=repData.pass?'✅':'❌';
-const payload={text:`${emoji} *New Training Submission*\n>*Name:* ${repData.name}\n>*Email:* ${repData.email}\n>*Phone:* ${repData.phone}\n>*DMA:* ${repData.dma}\n>*Score:* ${repData.score}%\n>*Status:* ${repData.pass?'PASSED':'FAILED'}\n>*Assigned Manager:* ${repData.manager}\n>*Completed:* ${new Date().toLocaleString()}`};
-navigator.sendBeacon(SLACK_WEBHOOK,new Blob([JSON.stringify(payload)],{type:'application/json'}));
+const msg=emoji+' *New Training Submission*\n>*Name:* '+repData.name+'\n>*Email:* '+repData.email+'\n>*Phone:* '+repData.phone+'\n>*DMA:* '+repData.dma+'\n>*Score:* '+repData.score+'%\n>*Status:* '+(repData.pass?'PASSED':'FAILED')+'\n>*Assigned Manager:* '+repData.manager+'\n>*Completed:* '+new Date().toLocaleString();
+const img=new Image();
+img.src=SLACK_PROXY+'?text='+encodeURIComponent(msg);
 }
 const $=id=>document.getElementById(id),R=document.getElementById('root');
 function show(v){R.innerHTML='';window.scrollTo(0,0);renders[v]();}
