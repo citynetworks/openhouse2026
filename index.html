@@ -92,7 +92,7 @@ const LESSONS=[
 ],callout:"Week 1 goal: Connect with your RM, review your DMA list, and have at least 5 venue conversations. Reps who start fast earn fast."}
 ],quiz:[
 {q:"Tier A commission per installed venue?",opts:["$200","$500","$300","$400"],a:3},
-{q:"When does your commission get paid out?",opts:["End of each quarter","30 days after first rental","Every Friday, for all installations pinned by 2 PM PST","When the venue signs the agreement"],a:2},
+{q:"When does your commission get paid out?",opts:["End of each quarter","30 days after first rental","Every Friday, for all installations pinned by 2 PM PST Thursday","When the venue signs the agreement"],a:2},
 {q:"What is Monday.com used for in the Sales Champion program?",opts:["Designing marketing materials","adFUZE network management","Customer refund processing","Pipeline tracking and venue logging"],a:3},
 {q:"First action after completing this training?",opts:["Post about chargeFUZE on social media","Connect with your RM and review your DMA target list","Wait for your manager to reach out","Start visiting venues without any tools"],a:1}
 ]}
@@ -101,7 +101,7 @@ const LESSONS=[
 let rep={},completed=[],scores={},curLesson=0,curSlide=0,curQ=0,qCorrect=0,qAnswered=false,dashFilter='all',dashUnlocked=false;
 const DASH_PASSWORD='chargeFUZE2026';
 // ↓↓↓ PASTE YOUR SLACK WEBHOOK URL HERE ↓↓↓
-https://hooks.slack.com/services/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
+const SLACK_WEBHOOK='';https://hooks.slack.com/services/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
 // ↑↑↑ Get this from: Slack > Apps > Incoming Webhooks > #1099cntraining ↑↑↑
 
 function getDash(){try{return JSON.parse(localStorage.getItem('cfuze_d4')||'[]')}catch{return[]}}
@@ -129,14 +129,48 @@ else if(s.type==='products')content=`<div class="sb">${s.body}</div><div class="
 else if(s.type==='pitch')content=`<div class="sb">${s.body}</div><div class="pitchlist">${s.scripts.map(sc=>`<div class="pch"><div class="pchlbl">${sc.label}</div><div class="pchscript">${sc.script}</div></div>`).join('')}</div>`;
 else if(s.type==='objections')content=`<div class="sb">${s.body}</div><div class="objlist">${s.objs.map(o=>`<div class="ocard-obj"><div class="oq">${o.q}</div><div class="oa">${o.a}</div></div>`).join('')}</div>`;
 else if(s.type==='steps')content=`<div class="sb">${s.body}</div><div class="steps">${s.steps.map((st,i)=>`<div class="step"><div class="stepn">0${i+1}</div><div>${st}</div></div>`).join('')}</div>${s.callout?`<div class="callout" style="margin-top:16px">${s.callout}</div>`:''}`;
-else if(s.type==='tiers')content=`<div class="sb">${s.body}</div><table class="ttable"><thead><tr><th>Tier</th><th>Payout</th><th>Venue Type</th></tr></thead><tbody><tr><td class="ttier" style="color:var(--gold)">A</td><td class="tpay" style="color:var(--gold)">$400</td><td>Premium — high-traffic bars, hotels, chains, entertainment</td></tr><tr><td class="ttier" style="color:var(--cyan)">B</td><td class="tpay" style="color:var(--cyan)">$300</td><td>Standard — mid-traffic restaurants, gyms, cafés</td></tr><tr><td class="ttier">C</td><td class="tpay">$200</td><td>Smaller or emerging locations</td></tr></tbody></table><div class="callout" style="margin-top:16px">Payout triggered on installation. Commissions are paid every Friday for all installations pinned by 2 PM PST that week.</div>`;
+else if(s.type==='tiers')content=`<div class="sb">${s.body}</div><table class="ttable"><thead><tr><th>Tier</th><th>Payout</th><th>Venue Type</th></tr></thead><tbody><tr><td class="ttier" style="color:var(--gold)">A</td><td class="tpay" style="color:var(--gold)">$400</td><td>Premium — high-traffic bars, hotels, chains, entertainment</td></tr><tr><td class="ttier" style="color:var(--cyan)">B</td><td class="tpay" style="color:var(--cyan)">$300</td><td>Standard — mid-traffic restaurants, gyms, cafés</td></tr><tr><td class="ttier">C</td><td class="tpay">$200</td><td>Smaller or emerging locations</td></tr></tbody></table><div class="callout" style="margin-top:16px">Payout triggered on installation. Commissions are paid every Friday for all installations pinned by 2 PM PST Thursday.</div>`;
 const isLast=curSlide===total-1;R.innerHTML=`<div class="nav"><div class="logo" onclick="show('home')">charge<em>FUZE</em> <span>·</span></div><div class="nav-right"><div class="nav-rep">${rep.name} · ${rep.dma}</div></div></div><div class="gbar"><div class="gbar-fill" style="width:${pct}%"></div></div><div class="lesson-wrap"><div class="lhdr"><button class="back" onclick="show('home')">← Back to Modules</button><div class="lnum">Module ${l.code}</div><div class="ltitle">${l.title}</div><div class="lsub">${l.subtitle}</div><div class="slide-bar"><div class="strack"><div class="sfill" style="width:${pct}%;background:${l.accent}"></div></div><div class="slabel">Slide ${curSlide+1} / ${total}</div></div></div><div class="slide"><div class="sh">${s.headline}</div>${content}</div><div class="lnav"><div class="lindic">${curSlide+1} / ${total}${isLast?' · QUIZ NEXT':''}</div><div style="display:flex;gap:8px">${curSlide>0?'<button class="btn btn-g" onclick="prevSlide()">← Back</button>':''}<button class="btn ${isLast?'btn-gold':'btn-c'}" onclick="${isLast?'startQuiz()':'nextSlide()'}">${isLast?'Take the Quiz →':'Next Slide →'}</button></div></div></div>`;},
 
 quiz(){const l=LESSONS[curLesson],q=l.quiz[curQ],total=l.quiz.length;R.innerHTML=`<div class="nav"><div class="logo">charge<em>FUZE</em> <span>·</span></div><div class="nav-rep">${rep.name}</div></div><div class="gbar"><div class="gbar-fill" style="width:100%"></div></div><div class="lesson-wrap"><div class="lhdr"><div class="lnum">Module ${l.code} · Knowledge Check</div><div class="ltitle">${l.title}</div></div><div class="qwrap"><div class="qey">Knowledge Check</div><div class="qdots">${l.quiz.map((_,i)=>{let c='qd';if(i<curQ)c+=' qd-ok';if(i===curQ)c+=' qd-a';return`<div class="${c}"></div>`;}).join('')}</div><div class="qq"><span class="qnum">Q${curQ+1}.</span>${q.q}</div><div class="qopts" id="q-opts">${q.opts.map((o,i)=>`<button class="qo" onclick="pickAnswer(${i})" id="qo-${i}">${o}</button>`).join('')}</div><div id="q-fb"></div><div id="q-nav"></div></div></div>`;},
 
 quizScore(){const l=LESSONS[curLesson],total=l.quiz.length,pct=Math.round((qCorrect/total)*100);scores[l.id]=pct;completed.push(l.id);if(completed.length===LESSONS.length){const avg=Math.round(Object.values(scores).filter(v=>typeof v==='number').reduce((a,b)=>a+b,0)/LESSONS.length);const repData={id:Date.now(),name:rep.name,email:rep.email,phone:rep.phone,dma:rep.dma,manager:rep.manager,score:avg,pass:avg>=70,date:new Date().toISOString(),tasks:{email:false,monday:false,slack:false,welcome:false}};const d=getDash();d.push(repData);saveDash(d);sendSlack(repData);}R.innerHTML=`<div class="nav"><div class="logo" onclick="show('home')">charge<em>FUZE</em> <span>·</span></div><div class="nav-rep">${rep.name}</div></div><div class="lesson-wrap" style="padding-top:60px"><div class="qwrap"><div class="qscore-wrap"><span class="qscore-n" style="color:${pct>=70?'var(--green)':'var(--red)'}">${pct}%</span><div class="qscore-sub">${qCorrect} of ${total} correct — Module ${l.code}</div></div><div style="text-align:center"><button class="btn btn-c" onclick="show('home')">Continue →</button></div></div></div>`;},
 
-results(){const nums=Object.values(scores).filter(v=>typeof v==='number');const avg=Math.round(nums.reduce((a,b)=>a+b,0)/nums.length);R.innerHTML=`<div class="nav"><div class="logo" onclick="show('home')">charge<em>FUZE</em> <span>·</span></div><div class="nav-right"><button class="nav-link" onclick="tryDash()" style="opacity:.4;font-size:9px">Manager</button></div></div><div class="lesson-wrap" style="padding-top:60px;text-align:center"><div class="hero-eyebrow" style="justify-content:center">Training Complete</div><div style="font-family:'Barlow Condensed';font-weight:900;font-size:72px;color:${avg>=70?'var(--green)':'var(--red)'};line-height:1;margin:16px 0 8px">${avg}%</div><div style="color:var(--muted);font-size:14px;margin-bottom:32px">${avg>=70?'You passed! Results sent to your Regional Manager.':'Did not pass (70% required). Contact your Regional Manager.'}</div><div class="res-card" style="text-align:left"><h4>Your Results</h4><div class="res-row"><span>Name</span><span class="res-val">${rep.name}</span></div><div class="res-row"><span>DMA</span><span class="res-val">${rep.dma}</span></div><div class="res-row"><span>Score</span><span class="res-val">${avg}%</span></div><div class="res-row"><span>Manager</span><span class="res-val"><span class="mgr-badge">${rep.manager}</span></span></div><div class="res-row"><span>Completed</span><span class="res-val">${new Date().toLocaleDateString()}</span></div></div><div class="sent-status">✓ Results sent to manager dashboard</div></div>`;},
+results(){const nums=Object.values(scores).filter(v=>typeof v==='number');const avg=Math.round(nums.reduce((a,b)=>a+b,0)/nums.length);const pass=avg>=70;R.innerHTML=`<div class="nav"><div class="logo">charge<em>FUZE</em> <span>·</span></div><div class="nav-right"><button class="nav-link" onclick="tryDash()" style="opacity:.4;font-size:9px">Manager</button></div></div>
+<div class="lesson-wrap" style="padding-top:60px">
+<div style="text-align:center;margin-bottom:48px">
+<div class="hero-eyebrow" style="justify-content:center">${pass?'Certification Complete':'Training Complete'}</div>
+<div style="font-size:64px;margin:16px 0">${pass?'🏆':'📋'}</div>
+<div style="font-family:'Barlow Condensed';font-weight:900;font-size:72px;color:${pass?'var(--green)':'var(--red)'};line-height:1;margin-bottom:8px">${avg}%</div>
+<div style="font-family:'Barlow Condensed';font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:2px;color:${pass?'var(--green)':'var(--red)';margin-bottom:8px">${pass?'You Passed':'Did Not Pass'}</div>
+<div style="color:var(--muted);font-size:14px;margin-top:8px">${nums.length} modules completed · ${new Date().toLocaleDateString()}</div>
+</div>
+
+<div style="background:var(--bg2);border:1px solid var(--rule2);border-top:3px solid ${pass?'var(--green)':'var(--red)'};padding:32px;margin-bottom:24px">
+<div class="qey">${pass?'What Happens Next':'Next Steps'}</div>
+${pass?`<div class="steps">
+<div class="step"><div class="stepn">01</div><div><strong>Your Regional Manager will reach out within 1-2 business days</strong> to welcome you, confirm your DMA, and walk you through your tools.</div></div>
+<div class="step"><div class="stepn">02</div><div><strong>Check your email and Slack</strong> — your manager will send invites for your chargeFUZE email, Monday.com board, and Slack workspace.</div></div>
+<div class="step"><div class="stepn">03</div><div><strong>Do not start venue visits until your manager contacts you.</strong> They will provide your DMA target list and sales collateral before you begin.</div></div>
+<div class="step"><div class="stepn">04</div><div><strong>Keep your phone on and inbox clear.</strong> The faster you respond to your manager's outreach, the faster you start earning.</div></div>
+</div>`:`<div class="steps">
+<div class="step"><div class="stepn">01</div><div><strong>A score of 70% or higher is required to pass.</strong> Your score of ${avg}% did not meet the threshold.</div></div>
+<div class="step"><div class="stepn">02</div><div><strong>Reach out to your Regional Manager</strong> to discuss retaking the training. They can provide guidance on the areas to review.</div></div>
+</div>`}
+</div>
+
+<div class="callout" style="margin-bottom:32px">${pass?'Your results have been submitted automatically. Your Regional Manager has been notified and will be in touch shortly. Sit tight.':'Your results have been submitted. Contact your Regional Manager to arrange a retake.'}</div>
+
+<div class="res-card" style="margin-bottom:0"><h4>Submission Summary</h4>
+<div class="res-row"><span>Name</span><span class="res-val">${rep.name}</span></div>
+<div class="res-row"><span>Email</span><span class="res-val">${rep.email}</span></div>
+<div class="res-row"><span>DMA</span><span class="res-val">${rep.dma}</span></div>
+<div class="res-row"><span>Overall Score</span><span class="res-val" style="color:${pass?'var(--green)':'var(--red)'}">${avg}% — ${pass?'PASSED':'FAILED'}</span></div>
+<div class="res-row"><span>Submitted</span><span class="res-val">${new Date().toLocaleString()}</span></div>
+</div>
+
+<div class="sent-status" style="margin-top:24px;margin-bottom:40px">✓ Results submitted · Manager notified via Slack</div>
+</div>`;},
 
 dashLogin(){R.innerHTML=`<div class="nav"><div class="logo" onclick="show('home')">charge<em>FUZE</em> <span>·</span></div><div class="nav-right"><button class="nav-link" onclick="show('home')">← Training</button></div></div><div class="ob-wrap"><div class="ob-card" style="max-width:400px"><div class="ob-eyebrow">Manager Access</div><div class="ob-h1" style="font-size:36px">Dashboard<br>Login</div><div class="ob-sub">Enter the manager password to access the onboarding dashboard.</div><div class="ob-form"><div class="ob-field"><div class="ob-label">Password</div><input class="ob-input" id="dash-pw" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkDashPW()"></div><div id="dash-err" class="ob-error"></div><button class="ob-btn" onclick="checkDashPW()">Access Dashboard →</button></div></div></div>`;setTimeout(()=>{const el=$('dash-pw');if(el)el.focus();},100);},
 
