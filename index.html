@@ -36,7 +36,7 @@ html{scroll-behavior:smooth}body{background:var(--bg);color:var(--white);font-fa
 <script>
 const DMA_MGR={'Los Angeles':'Chris','San Diego':'Chris','San Francisco':'Santi','Miami':'Santi','Dallas':'Santi','Houston':'Santi','Austin':'Santi','NYC':'Shamel','Chicago':'Shamel'};
 const DMAS=Object.keys(DMA_MGR);
- 
+
 // 4 MODULES (Ops & Escalation removed). Answers randomized.
 const LESSONS=[
 {id:0,code:"01",title:"The Empire",subtitle:"chargeFUZE at Scale — The Network, The Mission, The Opportunity",icon:"⚡",dur:"8 min",accent:"#00c2f0",slides:[
@@ -51,7 +51,7 @@ const LESSONS=[
 {q:"Which best describes the Sales Champion role?",opts:["Install hardware at venues you close","Show up, pitch, close — everything after is handled","Pitch, close, manage the account","Split duties with a territory manager"],a:1},
 {q:"What is true about the commission structure?",opts:["Fixed $250 per close","Capped at $2,000/month","Unlocks after 5 closes","Uncapped with bonuses stacking on top"],a:3}
 ]},
- 
+
 {id:1,code:"02",title:"The Arsenal",subtitle:"F10 · F15 · F25 — Hardware, Batteries & Verticals",icon:"🔋",dur:"10 min",accent:"#f0b429",slides:[
 {headline:"Three Units. Every Venue Covered.",body:"chargeFUZE deploys three hardware formats — each built for a specific venue type. Knowing which unit fits which door makes you a closer, not a visitor.",type:"products",products:[{name:"F10",tag:"COMPACT",color:"#00c2f0",desc:"Countertop. Plug-and-play. Size of a toaster. Live in 20 minutes.",specs:["10 battery slots","Countertop or stand","Digital screen","No install crew needed"],best:"Bars · Cafés · Small Gyms"},{name:"F15",tag:"MID-VOLUME",color:"#f0b429",desc:"Floor kiosk with full adFUZE display. For consistent-traffic venues.",specs:["15 battery slots","Floor kiosk","adFUZE display","Higher capacity"],best:"Hotels · Gyms · Restaurants"},{name:"F25",tag:"ARENA GRADE",color:"#2ecc71",desc:"Flagship. 125 lbs. Built for thousands per session. Runs at MSG and US Open.",specs:["25 battery slots","125 lbs heavy-duty","Premium display","Arena-level traffic"],best:"Arenas · Stadiums · Convention Centers"}]},
 {headline:"The Battery.",body:"Guests unlock via app or credit card, charge anywhere in the venue, return at any chargeFUZE location nationwide.",type:"stats",stats:[{n:"8,000",l:"mAh Capacity"},{n:"3-in-1",l:"USB-C · Lightning · Micro"},{n:"FREE",l:"First 15 Min"},{n:"$5/hr",l:"After That"}]},
@@ -61,7 +61,7 @@ const LESSONS=[
 {q:"What makes a venue 'high-value' for chargeFUZE?",opts:["Large parking lot","Rural location","High foot traffic with extended dwell time","Fewer than 50 daily customers"],a:2},
 {q:"How do customers return a chargeFUZE battery?",opts:["Mail it back within 7 days","Keep it — it's disposable","Return to the same station only","Return to any chargeFUZE location nationwide"],a:3}
 ]},
- 
+
 {id:2,code:"03",title:"The Pitch",subtitle:"Approach · Script · Objections · Closing",icon:"🎯",dur:"12 min",accent:"#e74c3c",slides:[
 {headline:"Timing & Approach.",body:"Visit off-peak — 2-4 PM weekdays for restaurants and bars. Ask for the decision-maker: 'Is the manager or owner available? I have a quick revenue opportunity.'",type:"text",callout:"Lead with value, not features. Start with what it does for them, not what the product is."},
 {headline:"The 30-Second Pitch.",body:"Deliver this in under 30 seconds:",type:"pitch",scripts:[{label:"The Open",script:"'We work with [partner name] and [X] other venues in [city]. We place a phone charging station on your counter at no cost to you.'"},{label:"The Value",script:"'Your customers rent portable chargers, and you earn a share of every rental plus advertising revenue. Nothing to install, maintain, or pay for.'"},{label:"Soft Close",script:"'Can I show you the station? Based on your traffic, I think you'd do really well with this.'"}]},
@@ -80,7 +80,7 @@ const LESSONS=[
 {q:"Venue says 'we have cables.' Best response?",opts:["Agree and leave","Offer a discount","Cables cost money; chargeFUZE generates revenue","Call their cables outdated"],a:2},
 {q:"After a verbal 'yes,' your next step is:",opts:["Wait for them to call you back","Walk through the order form, set revenue split, schedule delivery, get the contract signed","Schedule install yourself and leave","Send the venue a personal invoice"],a:1}
 ]},
- 
+
 {id:3,code:"04",title:"Comp & Launch",subtitle:"Commission Tiers · Tools · Your First Week",icon:"💰",dur:"8 min",accent:"#f0b429",slides:[
 {headline:"Commission Structure.",body:"You earn per installed venue. Tiers based on venue type and value:",type:"tiers"},
 {headline:"Your Tools.",body:"After your manager completes onboarding setup, you'll have access to everything you need:",type:"bullets",bullets:[{icon:"📋",text:"Monday.com — Pipeline tracker. Log visits, track deals, communicate with ops."},{icon:"💬",text:"Slack — Team hub. Your DMA channel for coordination with your Regional Manager."},{icon:"📧",text:"chargeFUZE Email — Professional domain for venue outreach and follow-ups."},{icon:"📄",text:"Sales collateral — One-pagers, case studies, comparison sheets provided by your RM."}]},
@@ -97,12 +97,12 @@ const LESSONS=[
 {q:"First action after completing this training?",opts:["Post about chargeFUZE on social media","Connect with your RM and review your DMA target list","Wait for your manager to reach out","Start visiting venues without any tools"],a:1}
 ]}
 ];
- 
+
 let rep={},completed=[],scores={},curLesson=0,curSlide=0,curQ=0,qCorrect=0,qAnswered=false,dashFilter='all',dashUnlocked=false;
 const DASH_PASSWORD='chargeFUZE2026';
 // SLACK WEBHOOK — direct to Slack, uses sendBeacon to bypass CORS
 const SLACK_WEBHOOK='https://hooks.slack.com/services/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';
- 
+
 function getDash(){try{return JSON.parse(localStorage.getItem('cfuze_d4')||'[]')}catch{return[]}}
 function saveDash(d){localStorage.setItem('cfuze_d4',JSON.stringify(d))}
 function sendSlack(repData){
@@ -113,12 +113,12 @@ navigator.sendBeacon(SLACK_WEBHOOK,new Blob([JSON.stringify(payload)],{type:'app
 }
 const $=id=>document.getElementById(id),R=document.getElementById('root');
 function show(v){R.innerHTML='';window.scrollTo(0,0);renders[v]();}
- 
+
 const renders={
 onboarding(){R.innerHTML=`<div class="nav"><div class="logo">charge<em>FUZE</em> <span>·</span></div><div class="nav-right"><div class="nav-badge">Sales Champion Training</div><button class="nav-link" onclick="tryDash()" style="opacity:.4;font-size:9px">Manager</button></div></div><div class="ob-wrap"><div class="ob-card"><div class="ob-eyebrow">City Networks · 2026</div><div class="ob-h1">Begin<br>Training</div><div class="ob-sub">Fill in your info to start Sales Champion certification. ~30 minutes total.</div><div class="ob-form"><div class="ob-field"><div class="ob-label">Full Name</div><input class="ob-input" id="f-name" placeholder="Your full name"></div><div class="ob-field"><div class="ob-label">Email</div><input class="ob-input" id="f-email" placeholder="your@email.com" type="email"></div><div class="ob-field"><div class="ob-label">Phone</div><input class="ob-input" id="f-phone" placeholder="(555) 000-0000" type="tel"></div><div class="ob-row"><div class="ob-field"><div class="ob-label">Assigned DMA</div><select class="ob-select" id="f-dma"><option value="">Select DMA</option>${DMAS.map(d=>`<option value="${d}">${d}</option>`).join('')}</select></div><div class="ob-field"><div class="ob-label">Start Date</div><input class="ob-input" id="f-date" type="date" value="${new Date().toISOString().split('T')[0]}"></div></div><div id="ob-err" class="ob-error"></div><button class="ob-btn" onclick="submitOB()">Begin Training →</button></div><div class="ob-footer"><div class="ob-stat">3,500+<span>Locations</span></div><div class="ob-divider"></div><div class="ob-stat">1.5M+<span>Users</span></div><div class="ob-divider"></div><div class="ob-stat">9<span>Markets</span></div></div></div></div>`;},
- 
+
 home(){const done=completed.length,total=LESSONS.length,pct=Math.round((done/total)*100);if(done===total&&!scores._shown){scores._shown=true;show('results');return;}R.innerHTML=`<div class="nav"><div class="logo" onclick="show('home')">charge<em>FUZE</em> <span>·</span></div><div class="nav-right"><div class="nav-rep">${rep.name} · ${rep.dma}</div><button class="nav-link" onclick="tryDash()" style="opacity:.4;font-size:9px">Manager</button></div></div><div class="gbar"><div class="gbar-fill" style="width:${pct}%"></div></div><div class="home"><div class="home-hero"><div class="hero-eyebrow">Sales Champion Training · 2026</div><div class="hero-h1">Your<br><span class="c">Training</span><br><span class="g">Starts Here.</span></div><div class="hero-desc">Four modules. Learn the material first, then prove you know it. Complete all four to get certified.</div><div class="overall-row"><div class="otrack"><div class="ofill" style="width:${pct}%"></div></div><div class="olabel">${done} / ${total} COMPLETE</div></div></div><div class="cards">${LESSONS.map((l,i)=>{const isDone=completed.includes(l.id),isActive=i===done&&!isDone,isLocked=i>done;const cls=isDone?'card cdone':isActive?'card':isLocked?'card locked':'card';const bdg=isDone?'<span class="badge bd">COMPLETE</span>':isActive?'<span class="badge bg">START</span>':'<span class="badge bl">LOCKED</span>';const sc=isDone?` · ${scores[l.id]}%`:'';return`<div class="${cls}" onclick="${isActive?`openLesson(${i})`:'void(0)'}"><div class="cstripe" style="background:${l.accent}"><div class="cstripe-glow" style="background:${l.accent}"></div></div><div class="cbody"><div class="ccode">Module ${l.code}</div><div class="ctitle">${l.title}</div><div class="csub">${l.subtitle}</div><div class="cfoot"><div class="cdur">${l.dur}</div>${bdg}<span style="font-size:11px;color:var(--muted)">${sc}</span></div></div><div class="cicon">${l.icon}</div></div>`;}).join('')}</div></div>`;},
- 
+
 lesson(){const l=LESSONS[curLesson],s=l.slides[curSlide],total=l.slides.length,pct=Math.round(((curSlide+1)/total)*100);let content='';
 if(s.type==='text')content=`<div class="sb">${s.body}</div>${s.callout?`<div class="callout">${s.callout}</div>`:''}`;
 else if(s.type==='stats')content=`<div class="sb">${s.body}</div><div class="bstat-grid">${s.stats.map(st=>`<div class="bstat"><span class="bstat-n">${st.n}</span><div class="bstat-l">${st.l}</div></div>`).join('')}</div>`;
@@ -130,11 +130,11 @@ else if(s.type==='objections')content=`<div class="sb">${s.body}</div><div class
 else if(s.type==='steps')content=`<div class="sb">${s.body}</div><div class="steps">${s.steps.map((st,i)=>`<div class="step"><div class="stepn">0${i+1}</div><div>${st}</div></div>`).join('')}</div>${s.callout?`<div class="callout" style="margin-top:16px">${s.callout}</div>`:''}`;
 else if(s.type==='tiers')content=`<div class="sb">${s.body}</div><table class="ttable"><thead><tr><th>Tier</th><th>Payout</th><th>Venue Type</th></tr></thead><tbody><tr><td class="ttier" style="color:var(--gold)">A</td><td class="tpay" style="color:var(--gold)">$400</td><td>Premium — high-traffic bars, hotels, chains, entertainment</td></tr><tr><td class="ttier" style="color:var(--cyan)">B</td><td class="tpay" style="color:var(--cyan)">$300</td><td>Standard — mid-traffic restaurants, gyms, cafés</td></tr><tr><td class="ttier">C</td><td class="tpay">$200</td><td>Smaller or emerging locations</td></tr></tbody></table><div class="callout" style="margin-top:16px">Payout triggered on installation. Commissions are paid every Friday for all installations pinned by 2 PM PST Thursday.</div>`;
 const isLast=curSlide===total-1;R.innerHTML=`<div class="nav"><div class="logo" onclick="show('home')">charge<em>FUZE</em> <span>·</span></div><div class="nav-right"><div class="nav-rep">${rep.name} · ${rep.dma}</div></div></div><div class="gbar"><div class="gbar-fill" style="width:${pct}%"></div></div><div class="lesson-wrap"><div class="lhdr"><button class="back" onclick="show('home')">← Back to Modules</button><div class="lnum">Module ${l.code}</div><div class="ltitle">${l.title}</div><div class="lsub">${l.subtitle}</div><div class="slide-bar"><div class="strack"><div class="sfill" style="width:${pct}%;background:${l.accent}"></div></div><div class="slabel">Slide ${curSlide+1} / ${total}</div></div></div><div class="slide"><div class="sh">${s.headline}</div>${content}</div><div class="lnav"><div class="lindic">${curSlide+1} / ${total}${isLast?' · QUIZ NEXT':''}</div><div style="display:flex;gap:8px">${curSlide>0?'<button class="btn btn-g" onclick="prevSlide()">← Back</button>':''}<button class="btn ${isLast?'btn-gold':'btn-c'}" onclick="${isLast?'startQuiz()':'nextSlide()'}">${isLast?'Take the Quiz →':'Next Slide →'}</button></div></div></div>`;},
- 
+
 quiz(){const l=LESSONS[curLesson],q=l.quiz[curQ],total=l.quiz.length;R.innerHTML=`<div class="nav"><div class="logo">charge<em>FUZE</em> <span>·</span></div><div class="nav-rep">${rep.name}</div></div><div class="gbar"><div class="gbar-fill" style="width:100%"></div></div><div class="lesson-wrap"><div class="lhdr"><div class="lnum">Module ${l.code} · Knowledge Check</div><div class="ltitle">${l.title}</div></div><div class="qwrap"><div class="qey">Knowledge Check</div><div class="qdots">${l.quiz.map((_,i)=>{let c='qd';if(i<curQ)c+=' qd-ok';if(i===curQ)c+=' qd-a';return`<div class="${c}"></div>`;}).join('')}</div><div class="qq"><span class="qnum">Q${curQ+1}.</span>${q.q}</div><div class="qopts" id="q-opts">${q.opts.map((o,i)=>`<button class="qo" onclick="pickAnswer(${i})" id="qo-${i}">${o}</button>`).join('')}</div><div id="q-fb"></div><div id="q-nav"></div></div></div>`;},
- 
+
 quizScore(){const l=LESSONS[curLesson],total=l.quiz.length,pct=Math.round((qCorrect/total)*100);scores[l.id]=pct;completed.push(l.id);if(completed.length===LESSONS.length){const avg=Math.round(Object.values(scores).filter(v=>typeof v==='number').reduce((a,b)=>a+b,0)/LESSONS.length);const repData={id:Date.now(),name:rep.name,email:rep.email,phone:rep.phone,dma:rep.dma,manager:rep.manager,score:avg,pass:avg>=70,date:new Date().toISOString(),tasks:{email:false,monday:false,slack:false,welcome:false}};const d=getDash();d.push(repData);saveDash(d);sendSlack(repData);}R.innerHTML=`<div class="nav"><div class="logo" onclick="show('home')">charge<em>FUZE</em> <span>·</span></div><div class="nav-rep">${rep.name}</div></div><div class="lesson-wrap" style="padding-top:60px"><div class="qwrap"><div class="qscore-wrap"><span class="qscore-n" style="color:${pct>=70?'var(--green)':'var(--red)'}">${pct}%</span><div class="qscore-sub">${qCorrect} of ${total} correct — Module ${l.code}</div></div><div style="text-align:center"><button class="btn btn-c" onclick="show('home')">Continue →</button></div></div></div>`;},
- 
+
 results(){const nums=Object.values(scores).filter(v=>typeof v==='number');const avg=Math.round(nums.reduce((a,b)=>a+b,0)/nums.length);const pass=avg>=70;R.innerHTML=`<div class="nav"><div class="logo">charge<em>FUZE</em> <span>·</span></div><div class="nav-right"><button class="nav-link" onclick="tryDash()" style="opacity:.4;font-size:9px">Manager</button></div></div>
 <div class="lesson-wrap" style="padding-top:60px">
 <div style="text-align:center;margin-bottom:48px">
@@ -144,7 +144,7 @@ results(){const nums=Object.values(scores).filter(v=>typeof v==='number');const 
 <div style="font-family:'Barlow Condensed';font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:2px;color:${pass?'var(--green)':'var(--red)'};margin-bottom:8px">${pass?'You Passed':'Did Not Pass'}</div>
 <div style="color:var(--muted);font-size:14px;margin-top:8px">${nums.length} modules completed · ${new Date().toLocaleDateString()}</div>
 </div>
- 
+
 <div style="background:var(--bg2);border:1px solid var(--rule2);border-top:3px solid ${pass?'var(--green)':'var(--red)'};padding:32px;margin-bottom:24px">
 <div class="qey">${pass?'What Happens Next':'Next Steps'}</div>
 ${pass?`<div class="steps">
@@ -157,9 +157,9 @@ ${pass?`<div class="steps">
 <div class="step"><div class="stepn">02</div><div><strong>Reach out to your Regional Manager</strong> to discuss retaking the training. They can provide guidance on the areas to review.</div></div>
 </div>`}
 </div>
- 
+
 <div class="callout" style="margin-bottom:32px">${pass?'Your results have been submitted automatically. Your Regional Manager has been notified and will be in touch shortly. Sit tight.':'Your results have been submitted. Contact your Regional Manager to arrange a retake.'}</div>
- 
+
 <div class="res-card" style="margin-bottom:0"><h4>Submission Summary</h4>
 <div class="res-row"><span>Name</span><span class="res-val">${rep.name}</span></div>
 <div class="res-row"><span>Email</span><span class="res-val">${rep.email}</span></div>
@@ -167,15 +167,15 @@ ${pass?`<div class="steps">
 <div class="res-row"><span>Overall Score</span><span class="res-val" style="color:${pass?'var(--green)':'var(--red)'}">${avg}% — ${pass?'PASSED':'FAILED'}</span></div>
 <div class="res-row"><span>Submitted</span><span class="res-val">${new Date().toLocaleString()}</span></div>
 </div>
- 
+
 <div class="sent-status" style="margin-top:24px;margin-bottom:40px">✓ Results submitted · Manager notified via Slack</div>
 </div>`;},
- 
+
 dashLogin(){R.innerHTML=`<div class="nav"><div class="logo" onclick="show('home')">charge<em>FUZE</em> <span>·</span></div><div class="nav-right"><button class="nav-link" onclick="show('home')">← Training</button></div></div><div class="ob-wrap"><div class="ob-card" style="max-width:400px"><div class="ob-eyebrow">Manager Access</div><div class="ob-h1" style="font-size:36px">Dashboard<br>Login</div><div class="ob-sub">Enter the manager password to access the onboarding dashboard.</div><div class="ob-form"><div class="ob-field"><div class="ob-label">Password</div><input class="ob-input" id="dash-pw" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkDashPW()"></div><div id="dash-err" class="ob-error"></div><button class="ob-btn" onclick="checkDashPW()">Access Dashboard →</button></div></div></div>`;setTimeout(()=>{const el=$('dash-pw');if(el)el.focus();},100);},
- 
+
 dashboard(){if(!dashUnlocked){show('dashLogin');return;}const all=getDash(),filtered=dashFilter==='all'?all:all.filter(r=>r.manager===dashFilter);const total=filtered.length,passed=filtered.filter(r=>r.pass).length,failed=total-passed,fully=filtered.filter(r=>r.pass&&r.tasks&&r.tasks.email&&r.tasks.monday&&r.tasks.slack&&r.tasks.welcome).length;R.innerHTML=`<div class="nav"><div class="logo" onclick="show('home')">charge<em>FUZE</em> <span>·</span></div><div class="nav-right"><button class="nav-link" onclick="show('home')">← Training</button><button class="nav-link" onclick="dashUnlocked=false;show('home')" style="border-color:var(--red);color:var(--red)">Lock</button></div></div><div class="dash-wrap"><div class="dash-header"><h2>Manager Dashboard</h2><div class="dash-tabs"><button class="${dashFilter==='all'?'active':''}" onclick="setDashFilter('all')">All</button><button class="${dashFilter==='Chris'?'active':''}" onclick="setDashFilter('Chris')">Chris (LA/SD)</button><button class="${dashFilter==='Santi'?'active':''}" onclick="setDashFilter('Santi')">Santi (W/S)</button><button class="${dashFilter==='Shamel'?'active':''}" onclick="setDashFilter('Shamel')">Shamel (East)</button></div></div><div class="dash-stats"><div class="dash-stat"><div class="ds-n">${total}</div><div class="ds-l">Total Reps</div></div><div class="dash-stat"><div class="ds-n" style="color:var(--green)">${passed}</div><div class="ds-l">Passed</div></div><div class="dash-stat"><div class="ds-n" style="color:var(--red)">${failed}</div><div class="ds-l">Failed</div></div><div class="dash-stat"><div class="ds-n" style="color:var(--green)">${fully}</div><div class="ds-l">Fully Onboarded</div></div></div><div style="overflow-x:auto"><table class="dash-table"><thead><tr><th>Rep</th><th>DMA</th><th>Score</th><th>Status</th><th>Manager</th><th>Onboarding Tasks</th></tr></thead><tbody>${filtered.length===0?'<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted)">No reps yet.</td></tr>':filtered.map(r=>{const t=r.tasks||{email:false,monday:false,slack:false,welcome:false};const items=[{k:'email',l:'Email'},{k:'monday',l:'Monday.com'},{k:'slack',l:'Slack'},{k:'welcome',l:'Welcome'}];return`<tr><td><strong>${r.name}</strong><br><span style="font-size:11px;color:var(--muted)">${r.email}</span></td><td>${r.dma}</td><td>${r.score}%</td><td><span class="${r.pass?'badge-pass':'badge-fail'}">${r.pass?'PASSED':'FAILED'}</span></td><td>${r.manager}</td><td><div class="task-row">${items.map(ti=>`<div class="task-item" onclick="toggleTask(${r.id},'${ti.k}')"><div class="task-box ${t[ti.k]?'done':''}">${t[ti.k]?'✓':''}</div><span class="task-lbl ${t[ti.k]?'done':''}">${ti.l}</span></div>`).join('')}</div></td></tr>`;}).join('')}</tbody></table></div></div>`;}
 };
- 
+
 window.submitOB=function(){const name=$('f-name').value.trim(),email=$('f-email').value.trim(),phone=$('f-phone').value.trim(),dma=$('f-dma').value,date=$('f-date').value;if(!name||!email||!dma){$('ob-err').textContent='Please fill in name, email, and DMA.';return;}rep={name,email,phone,dma,date,manager:DMA_MGR[dma]||'Unassigned'};completed=[];scores={};show('home');};
 window.openLesson=function(i){curLesson=i;curSlide=0;show('lesson');};
 window.nextSlide=function(){curSlide++;show('lesson');};
@@ -192,4 +192,3 @@ show('onboarding');
 </script>
 </body>
 </html>
- 
