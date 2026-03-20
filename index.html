@@ -110,8 +110,7 @@ function sendSlack(repData){
 if(!SLACK_WEBHOOK)return;
 const emoji=repData.pass?'✅':'❌';
 const payload={text:`${emoji} *New Training Submission*\n>*Name:* ${repData.name}\n>*Email:* ${repData.email}\n>*Phone:* ${repData.phone}\n>*DMA:* ${repData.dma}\n>*Score:* ${repData.score}%\n>*Status:* ${repData.pass?'PASSED':'FAILED'}\n>*Assigned Manager:* ${repData.manager}\n>*Completed:* ${new Date().toLocaleString()}`};
-fetch(SLACK_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});}
-const $=id=>document.getElementById(id),R=document.getElementById('root');
+fetch(SLACK_WEBHOOK,{method:'POST',body:JSON.stringify(payload)}).catch(()=>{});const $=id=>document.getElementById(id),R=document.getElementById('root');
 function show(v){R.innerHTML='';window.scrollTo(0,0);renders[v]();}
  
 const renders={
