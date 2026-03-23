@@ -110,11 +110,12 @@ window._slackCb=function(){};
 window._saveCb=function(){};
 function getDash(){try{return JSON.parse(localStorage.getItem('cfuze_d4')||'[]')}catch{return[]}}
 function saveDash(d){localStorage.setItem('cfuze_d4',JSON.stringify(d))}
-function sendSlack(repData){
+function function sendSlack(repData){
 if(!SLACK_PROXY)return;
 var status=repData.pass?'PASSED':'FAILED';
-var msg='['+status+'] New Training Submission - Name: '+repData.name+' - Email: '+repData.email+' - Phone: '+repData.phone+' - DMA: '+repData.dma+' - Score: '+repData.score+'% - Manager: '+repData.manager;
-new Image().src=SLACK_PROXY+'?text='+encodeURIComponent(msg);
+var msg='['+status+'] New Training Submission - Name: '+repData.name+' - Email: '+repData.email+' - Phone: '+repData.phone+' - DMA: '+repData.dma+' - Score: '+repData.score+' - Manager: '+repData.manager;
+var s=document.createElement('script');s.src=SLACK_PROXY+'?text='+encodeURIComponent(msg);document.body.appendChild(s);s.onload=function(){s.remove()};s.onerror=function(){s.remove()};
+}
 }
 function saveToSheet(repData){
 if(!SLACK_PROXY)return;
