@@ -112,8 +112,8 @@ function getDash(){try{return JSON.parse(localStorage.getItem('cfuze_d4')||'[]')
 function saveDash(d){localStorage.setItem('cfuze_d4',JSON.stringify(d))}
 function sendSlack(repData){
 if(!SLACK_PROXY)return;
-const emoji=repData.pass?'[PASSED]':'[FAILED]';
-const msg=emoji+' *New Training Submission*\n>*Name:* '+repData.name+'\n>*Email:* '+repData.email+'\n>*Phone:* '+repData.phone+'\n>*DMA:* '+repData.dma+'\n>*Score:* '+repData.score+'%\n>*Status:* '+(repData.pass?'PASSED':'FAILED')+'\n>*Assigned Manager:* '+repData.manager+'\n>*Completed:* '+new Date().toLocaleString();
+const status=repData.pass?'[PASSED]':'[FAILED]';
+const msg=status+' New Training Submission - Name: '+repData.name+' - Email: '+repData.email+' - Phone: '+repData.phone+' - DMA: '+repData.dma+' - Score: '+repData.score+'% - Status: '+(repData.pass?'PASSED':'FAILED')+' - Manager: '+repData.manager;
 var s=document.createElement('script');s.src=SLACK_PROXY+'?text='+encodeURIComponent(msg)+'&callback=_slackCb';document.body.appendChild(s);s.onload=function(){s.remove()};s.onerror=function(){s.remove()};
 }
 function saveToSheet(repData){
