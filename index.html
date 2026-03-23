@@ -105,7 +105,7 @@ const DASH_PASSWORD='chargeFUZE2026';
 //        2) Paste the doPost function (provided separately)
 //        3) Deploy → New Deployment → Web App → Execute as Me → Anyone → Deploy
 //        4) Paste the URL below
-const SLACK_PROXY='https://script.google.com/macros/s/AKfycbyWUK6J-M-imsJYgTmBMd5gaMGyDvOFWydolOzabYsHmLLFcZzid0aOTrC2KP4h55w/exec';
+const SLACK_PROXY='https://script.google.com/macros/s/AKfycbxXfAIFDKVJBr2bPLlkoDrTi0oXY4ahqtMgBF2T7tuJdT79jzFePf5qxfTp83qurpt_/exec';
 
 function getDash(){try{return JSON.parse(localStorage.getItem('cfuze_d4')||'[]')}catch{return[]}}
 function saveDash(d){localStorage.setItem('cfuze_d4',JSON.stringify(d))}
@@ -130,19 +130,13 @@ fetch(SLACK_PROXY+'?action=save&data='+encodeURIComponent(JSON.stringify(repData
 }
 function loadFromSheet(cb){
 if(!SLACK_PROXY){cb(getDash());return;}
-fetch(SLACK_PROXY+'?action=load')
-  .then(function(r){return r.json();})
-  .then(function(data){cb(Array.isArray(data)?data:getDash());})
-  .catch(function(){
-    // JSONP fallback (for scripts that require callback format)
-    var cbName='_loadCb_'+Date.now();
-    var timer=setTimeout(function(){if(window[cbName]){delete window[cbName];cb(getDash());}},6000);
-    window[cbName]=function(data){clearTimeout(timer);delete window[cbName];cb(Array.isArray(data)?data:getDash());};
-    var s=document.createElement('script');
-    s.src=SLACK_PROXY+'?action=load&callback='+cbName;
-    document.body.appendChild(s);
-    s.onerror=function(){clearTimeout(timer);s.remove();if(window[cbName]){delete window[cbName];cb(getDash());}};
-  });
+var cbName='_loadCb_'+Date.now();
+var timer=setTimeout(function(){if(window[cbName]){delete window[cbName];cb(getDash());}},6000);
+window[cbName]=function(data){clearTimeout(timer);delete window[cbName];cb(Array.isArray(data)?data:getDash());};
+var s=document.createElement('script');
+s.src=SLACK_PROXY+'?action=load&callback='+cbName;
+document.body.appendChild(s);
+s.onerror=function(){clearTimeout(timer);s.remove();if(window[cbName]){delete window[cbName];cb(getDash());}};
 }
 function updateTaskOnSheet(rowEmail,taskKey,taskVal){
 if(!SLACK_PROXY)return;
