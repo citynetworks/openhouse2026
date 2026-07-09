@@ -105,8 +105,7 @@ const DASH_PASSWORD='chargeFUZE2026';
 //        2) Paste the doPost function (provided separately)
 //        3) Deploy → New Deployment → Web App → Execute as Me → Anyone → Deploy
 //        4) Paste the URL below
-const SLACK_PROXY='https://script.google.com/macros/s/AKfycbxXfAIFDKVJBr2bPLlkoDrTi0oXY4ahqtMgBF2T7tuJdT79jzFePf5qxfTp83qurpt_/exec';
-
+const SLACK_PROXY = "https://blue.chargefuze.com/api/integrations/training/quiz";
 function getDash(){try{return JSON.parse(localStorage.getItem('cfuze_d4')||'[]')}catch{return[]}}
 function saveDash(d){localStorage.setItem('cfuze_d4',JSON.stringify(d))}
 function sendSlack(repData){
